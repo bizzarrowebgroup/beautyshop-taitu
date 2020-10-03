@@ -7,17 +7,17 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "firebase": "^7.9.0",
+    "next": "^9.5.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "react-table": "^7.5.1"
   },
   "scripts": {
-    "start": "npm run build:css && react-scripts start",
-    "build": "npm run build:css && react-scripts build",
-    "start:tw": "postcss ./src/styles/tailwind.css -o ./src/styles/tailwind-used.css -w",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "build:css": "postcss src/styles/tailwind.css -o src/styles/main.css"
+    "start": "next dev",
+    "nextdevlan": "next dev -H 0.0.0.0",
+    "nextbuild": "next build",
+    "nextstart": "next start"
   },
   "eslintConfig": {
     "extends": "react-app"
