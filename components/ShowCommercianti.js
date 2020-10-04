@@ -114,6 +114,7 @@ const ShowCommercianti = () => {
         snapshotInternal.forEach(doc => {
           hours.push({ id: doc.id, ...doc.data() });
         })
+        console.log("---hours---", hours)
         hours.forEach(h => {
           switch (h.day) {
             case 1:
@@ -127,42 +128,42 @@ const ShowCommercianti = () => {
               if (h.open === "" || h.close === "") {
                 setDay(day => ({ ...day, martedi: { closed: true, start: null, end: null } }))
               } else {
-                setDay(day => ({ ...day, martedi: { closed: false, start: h.open, end: h.open } }))
+                setDay(day => ({ ...day, martedi: { closed: false, start: h.open, end: h.close } }))
               }
               break;
             case 3:
               if (h.open === "" || h.close === "") {
                 setDay(day => ({ ...day, mercoledi: { closed: true, start: null, end: null } }))
               } else {
-                setDay(day => ({ ...day, mercoledi: { closed: false, start: h.open, end: h.open } }))
+                setDay(day => ({ ...day, mercoledi: { closed: false, start: h.open, end: h.close } }))
               }
               break;
             case 4:
               if (h.open === "" || h.close === "") {
                 setDay(day => ({ ...day, giovedi: { closed: true, start: null, end: null } }))
               } else {
-                setDay(day => ({ ...day, giovedi: { closed: false, start: h.open, end: h.open } }))
+                setDay(day => ({ ...day, giovedi: { closed: false, start: h.open, end: h.close } }))
               }
               break;
             case 5:
               if (h.open === "" || h.close === "") {
                 setDay(day => ({ ...day, venerdi: { closed: true, start: null, end: null } }))
               } else {
-                setDay(day => ({ ...day, venerdi: { closed: false, start: h.open, end: h.open } }))
+                setDay(day => ({ ...day, venerdi: { closed: false, start: h.open, end: h.close } }))
               }
               break;
             case 6:
               if (h.open === "" || h.close === "") {
                 setDay(day => ({ ...day, sabato: { closed: true, start: null, end: null } }))
               } else {
-                setDay(day => ({ ...day, sabato: { closed: false, start: h.open, end: h.open } }))
+                setDay(day => ({ ...day, sabato: { closed: false, start: h.open, end: h.close } }))
               }
               break;
             case 7:
               if (h.open === "" || h.close === "") {
                 setDay(day => ({ ...day, domenica: { closed: true, start: null, end: null } }))
               } else {
-                setDay(day => ({ ...day, domenica: { closed: false, start: h.open, end: h.open } }))
+                setDay(day => ({ ...day, domenica: { closed: false, start: h.open, end: h.close } }))
               }
               break;
           }

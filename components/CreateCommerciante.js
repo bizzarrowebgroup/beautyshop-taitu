@@ -95,7 +95,7 @@ const CreateCommerciante = () => {
       const orario = await fire.firestore()
         .collection('orari')
         .add({
-          commerciante: commerciante.id
+          commercianti: commerciante.id
         });
       /**
        * add orari to DB DIOCAN! 
