@@ -11,12 +11,10 @@ export default function Home() {
         <div className="mt-2 sm:flex sm:items-start sm:justify-between">
           <div className="text-sm leading-6 text-gray-500">
             <p>
-              {/*Step one of setting up your autonomous system is creating a
-            virtual machine to act as a router. The next few pages will
-            guide you through creating a VM to your needs.*/}
+              {"Step one of setting up your autonomous system is creating a virtual machine to act as a router. The next few pages will guide you through creating a VM to your needs."}
             </p>
           </div>
-          <Link href="/prenotazioni/crea">
+          {/*<Link href="/prenotazioni/crea">
             <button
               type="button"
               className="inline-flex rounded-md shadow-sm border border-gray-300 whitespace-no-wrap justify-center items-center w-full sm:w-auto mt-4 sm:mt-0 sm:ml-4 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-600 sm:text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5"
@@ -39,7 +37,7 @@ export default function Home() {
               </svg>
               <span>Crea prenotazione</span>
             </button>
-          </Link>
+          </Link>*/}
         </div>
       </div>
     </div>

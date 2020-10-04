@@ -44,7 +44,7 @@ const Modal = ({ isEnabled, title = "", desc = "", onConfirm, onCancel }) => {
                   //@click="showModal = false"
                   onClick={onConfirm}
                 >
-                  Conferma
+                  {"Conferma"}
                 </button>
               </span>
               <span
