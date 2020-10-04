@@ -15,7 +15,43 @@ const CreateCommerciante = () => {
   const [step, setStep] = useState(0);
   const [economy, setEconomy] = useState(0);
   const [hours, setHours] = useState(null);
-  const [selectedOption, setSelectedOption] = useState(0);
+  const [selectedOption, setSelectedOption] = useState({
+    lunedi: "off",
+    martedi: "off",
+    mercoledi: "off",
+    giovedi: "off",
+    venerdi: "off",
+    sabato: "off",
+    domenica: "off"
+  });
+  const [lunediOrari, setLunedi] = useState({
+    start: null,
+    end: null
+  });
+  const [martediOrari, setMartedi] = useState({
+    start: null,
+    end: null
+  });
+  const [mercolediOrari, setMercoledi] = useState({
+    start: null,
+    end: null
+  });
+  const [giovediOrari, setGiovedi] = useState({
+    start: null,
+    end: null
+  });
+  const [venerdiOrari, setVenerdi] = useState({
+    start: null,
+    end: null
+  });
+  const [sabatoOrari, setSabato] = useState({
+    start: null,
+    end: null
+  });
+  const [domenicaOrari, setDomenica] = useState({
+    start: null,
+    end: null
+  });
   const { ShowNotification } = useContext(RouteContext)
 
   const [notification, setNotification] = useState('');
@@ -28,7 +64,7 @@ const CreateCommerciante = () => {
       setNType(0)
     }, time)
   }
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     let data = {
       title: title,
       desc: desc,
@@ -40,22 +76,74 @@ const CreateCommerciante = () => {
       phone: phone,
       plan: plan
     };
-    //console.log(data,"--data--\n\n")
+    let orari = {
+      lunediOrari,
+      martediOrari,
+      mercolediOrari,
+      giovediOrari,
+      venerdiOrari,
+      sabatoOrari,
+      domenicaOrari
+    }
+    console.log(orari, "--data--\n\n")
     event.preventDefault();
     //return;
     try {
-      fire.firestore()
+      const commerciante = await fire.firestore()
         .collection('commercianti')
-        .add(data).then(res => console.log(res, "--res--"));
-      setTitle('');
-      setDesc('');
-      setVia('');
-      setEmail('');
-      setPhone('');
-      setType(null);
-      setPlan(null);
-      setStep(0);
-      setEconomy(0);
+        .add(data);
+      const orario = await fire.firestore()
+        .collection('orari')
+        .add({
+          commerciante: commerciante.id
+        });
+      /**
+       * add orari to DB DIOCAN! 
+       */
+      await fire.firestore().collection('orari').doc(orario.id).collection('orario').add({
+        day: 1,
+        open: lunediOrari.start !== null ? lunediOrari.start : "", //end
+        close: lunediOrari.end !== null ? lunediOrari.end : ""
+      })
+      await fire.firestore().collection('orari').doc(orario.id).collection('orario').add({
+        day: 2,
+        open: martediOrari.start !== null ? martediOrari.start : "", //end
+        close: martediOrari.end !== null ? martediOrari.end : ""
+      })
+      await fire.firestore().collection('orari').doc(orario.id).collection('orario').add({
+        day: 3,
+        open: mercolediOrari.start !== null ? mercolediOrari.start : "", //end
+        close: mercolediOrari.end !== null ? mercolediOrari.end : ""
+      })
+      await fire.firestore().collection('orari').doc(orario.id).collection('orario').add({
+        day: 4,
+        open: giovediOrari.start !== null ? giovediOrari.start : "", //end
+        close: giovediOrari.end !== null ? giovediOrari.end : ""
+      })
+      await fire.firestore().collection('orari').doc(orario.id).collection('orario').add({
+        day: 5,
+        open: venerdiOrari.start !== null ? venerdiOrari.start : "", //end
+        close: venerdiOrari.end !== null ? venerdiOrari.end : ""
+      })
+      await fire.firestore().collection('orari').doc(orario.id).collection('orario').add({
+        day: 6,
+        open: sabatoOrari.start !== null ? sabatoOrari.start : "", //end
+        close: sabatoOrari.end !== null ? sabatoOrari.end : ""
+      })
+      await fire.firestore().collection('orari').doc(orario.id).collection('orario').add({
+        day: 7,
+        open: domenicaOrari.start !== null ? domenicaOrari.start : "", //end
+        close: domenicaOrari.end !== null ? domenicaOrari.end : ""
+      })
+      //setTitle('');
+      //setDesc('');
+      //setVia('');
+      //setEmail('');
+      //setPhone('');
+      //setType(null);
+      //setPlan(null);
+      //setStep(0);
+      //setEconomy(0);
       showNotification("Nuovo commerciante creato", 2000, 2)
     } catch (error) {
       showNotification(error, 5000, 0)
@@ -79,11 +167,85 @@ const CreateCommerciante = () => {
       showNotification("Inserisci tutti i campi, sono obbligatori!!!", 5000, 0)
     }
   }
-
+  const handleOptionChange = (changeEvent, type) => {
+    let val = changeEvent; //changeEvent.target.value;
+    //console.log("---", {
+    //  val,
+    //  type,
+    //  selectedOption
+    //})
+    if (type == 0) {
+      setLunedi({
+        start: val == "on" ? "08:30" : null,
+        end: val == "on" ? "19:30" : null
+      });
+      setSelectedOption({
+        ...selectedOption,
+        lunedi: val
+      });
+    } else if (type == 1) {
+      setMartedi({
+        start: val == "on" ? "08:30" : null,
+        end: val == "on" ? "19:30" : null
+      });
+      setSelectedOption({
+        ...selectedOption,
+        martedi: val
+      });
+    } else if (type == 2) {
+      setMercoledi({
+        start: val == "on" ? "08:30" : null,
+        end: val == "on" ? "19:30" : null
+      });
+      setSelectedOption({
+        ...selectedOption,
+        mercoledi: val
+      });
+    } else if (type == 3) {
+      setGiovedi({
+        start: val == "on" ? "08:30" : null,
+        end: val == "on" ? "19:30" : null
+      });
+      setSelectedOption({
+        ...selectedOption,
+        giovedi: val
+      });
+    } else if (type == 4) {
+      setVenerdi({
+        start: val == "on" ? "08:30" : null,
+        end: val == "on" ? "19:30" : null
+      });
+      setSelectedOption({
+        ...selectedOption,
+        venerdi: val
+      });
+    } else if (type == 5) {
+      setSabato({
+        start: val == "on" ? "08:30" : null,
+        end: val == "on" ? "19:30" : null
+      });
+      setSelectedOption({
+        ...selectedOption,
+        sabato: val
+      });
+    } else if (type == 6) {
+      setDomenica({
+        start: val == "on" ? "08:30" : null,
+        end: val == "on" ? "19:30" : null
+      });
+      setSelectedOption({
+        ...selectedOption,
+        domenica: val
+      });
+    }
+  }
+  //const handleOptionChange1 = changeEvent => {
+  //  let val = changeEvent.target.value;
+  //  setSelectedOption((state) => ({ ...state, martedi: val }))
+  //}
   React.useEffect(() => {
     let done = createHours()
     setHours(done);
-    console.log("---done---", done)
   }, []);
   const createHours = (realStart, slotTime, endTime) => {
     const hours = [];
@@ -124,6 +286,7 @@ const CreateCommerciante = () => {
     }
     return hours;
   }
+  const { lunedi, martedi, mercoledi, giovedi, venerdi, sabato, domenica } = selectedOption;
   return (
     <div>
       <div className={`${notification == '' ? "hidden" : ""}`} style={{
@@ -392,77 +555,328 @@ const CreateCommerciante = () => {
                         <div className="text-xs border-t border-b border-gray-400 px-2 py-2">
                           <div>
                             <label className="inline-flex items-center">
-                              <input type="radio" className=" h-4 w-4 form-radio text-red-500" name="radio" value="1" />
+                              <input type="checkbox" class="form-checkbox h-4 w-4" value="off" onClick={() => handleOptionChange("off", 0)} checked={lunedi == "off"} />
                               <span className="ml-2 text-xs font-mono text-red-400">Chiuso</span>
                             </label>
                           </div>
                           <div>
                             <label className="inline-flex items-center">
-                              <input type="radio" className=" h-4 w-4 form-radio text-green-700" name="radio" value="2" />
+                              <input type="checkbox" class="form-checkbox h-4 w-4" value="on" onClick={() => handleOptionChange("on", 0)} checked={lunedi == "on"} />
                               <span className="ml-2 text-xs font-mono text-green-700">Aperto</span>
                             </label>
                           </div>
                         </div>
-                        <div className="flex flex-row border-b border-gray-400 pb-2 pt-2 px-2 content-center justify-center">
-                          <div className="flex-1 text-xs pr-2">
-                            <div className="text-grey-darker">{"Apertura"}</div>
-                            <select className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm">
-                              <option disabled></option>
-                              {hours !== null && hours.map((item, index) => {
-                                return (
-                                  <option value={"lunedi_"+item}>{item}</option>
-                                )
-                              })
-                              }
-                            </select>
+                        {lunedi == "on" && (
+                          <div className="flex flex-row border-b border-gray-400 pb-2 pt-2 px-2 content-center justify-center">
+                            <div className="flex-1 text-xs pr-2">
+                              <div className="text-grey-darker">{"Apertura"}</div>
+                              <select onChange={({ target }) => setLunedi({ ...lunediOrari, start: target.value })} className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm">
+                                <option disabled></option>
+                                {hours !== null && hours.map((item, index) => {
+                                  return (
+                                    <option value={item}>{item}</option>
+                                  )
+                                })
+                                }
+                              </select>
+                            </div>
+                            <div className="flex-1 text-xs">
+                              <div className="text-grey-darker">{"Chiusura"}</div>
+                              <select onChange={({ target }) => setLunedi({ ...lunediOrari, end: target.value })} className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm">
+                                <option disabled></option>
+                                {hours !== null && hours.map((item, index) => {
+                                  return (
+                                    <option value={item}>{item}</option>
+                                  )
+                                })
+                                }
+                              </select>
+                            </div>
                           </div>
-                          <div className="flex-1 text-xs">
-                            <div className="text-grey-darker">{"Chiusura"}</div>
-                            <select className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm">
-                              <option disabled></option>
-                              <option value="0">09:00</option>
-                              <option value="1">09:15</option>
-                              <option value="2">09:30</option>
-                            </select>
+                        )}
+                      </div>
+                      <div className="m-2 flex-row content-start justify-items-start justify-center border-t border-l border-r border-gray-400 rounded">
+                        <div className="flex-1 text-grey-darker">{"Martedi"}</div>
+                        <div className="text-xs border-t border-b border-gray-400 px-2 py-2">
+                          <div>
+                            <label className="inline-flex items-center">
+                              <input type="checkbox" class="form-checkbox h-4 w-4" value="off" onClick={() => handleOptionChange("off", 1)} checked={martedi == "off"} />
+                              <span className="ml-2 text-xs font-mono text-red-400">Chiuso</span>
+                            </label>
+                          </div>
+                          <div>
+                            <label className="inline-flex items-center">
+                              <input type="checkbox" class="form-checkbox h-4 w-4" value="on" onClick={() => handleOptionChange("on", 1)} checked={martedi == "on"} />
+                              <span className="ml-2 text-xs font-mono text-green-700">Aperto</span>
+                            </label>
                           </div>
                         </div>
+                        {martedi == "on" && (
+                          <div className="flex flex-row border-b border-gray-400 pb-2 pt-2 px-2 content-center justify-center">
+                            <div className="flex-1 text-xs pr-2">
+                              <div className="text-grey-darker">{"Apertura"}</div>
+                              <select onChange={({ target }) => setMartedi({ ...martediOrari, start: target.value })} className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm">
+                                <option disabled></option>
+                                {hours !== null && hours.map((item, index) => {
+                                  return (
+                                    <option value={item}>{item}</option>
+                                  )
+                                })
+                                }
+                              </select>
+                            </div>
+                            <div className="flex-1 text-xs">
+                              <div className="text-grey-darker">{"Chiusura"}</div>
+                              <select onChange={({ target }) => setMartedi({ ...martediOrari, end: target.value })} className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm">
+                                <option disabled></option>
+                                {hours !== null && hours.map((item, index) => {
+                                  return (
+                                    <option value={item}>{item}</option>
+                                  )
+                                })
+                                }
+                              </select>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                      <div className="m-2 flex-row content-start justify-items-start justify-center">
-                        <div className="flex-1 text-grey-darker">{"Martedi"}</div>
-                        <div className="flex-1 text-xs">{""}</div>
-                      </div>
-                      <div className="m-2 flex-row content-start justify-items-start justify-center">
+                      <div className="m-2 flex-row content-start justify-items-start justify-center border-t border-l border-r border-gray-400 rounded">
                         <div className="flex-1 text-grey-darker">{"Mercoledi"}</div>
-                        <div className="flex-1 text-xs">{""}</div>
+                        <div className="text-xs border-t border-b border-gray-400 px-2 py-2">
+                          <div>
+                            <label className="inline-flex items-center">
+                              <input type="checkbox" class="form-checkbox h-4 w-4" value="off" onClick={() => handleOptionChange("off", 2)} checked={mercoledi == "off"} />
+                              <span className="ml-2 text-xs font-mono text-red-400">Chiuso</span>
+                            </label>
+                          </div>
+                          <div>
+                            <label className="inline-flex items-center">
+                              <input type="checkbox" class="form-checkbox h-4 w-4" value="on" onClick={() => handleOptionChange("on", 2)} checked={mercoledi == "on"} />
+                              <span className="ml-2 text-xs font-mono text-green-700">Aperto</span>
+                            </label>
+                          </div>
+                        </div>
+                        {mercoledi == "on" && (
+                          <div className="flex flex-row border-b border-gray-400 pb-2 pt-2 px-2 content-center justify-center">
+                            <div className="flex-1 text-xs pr-2">
+                              <div className="text-grey-darker">{"Apertura"}</div>
+                              <select onChange={({ target }) => setMercoledi({ ...mercolediOrari, start: target.value })} className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm">
+                                <option disabled></option>
+                                {hours !== null && hours.map((item, index) => {
+                                  return (
+                                    <option value={item}>{item}</option>
+                                  )
+                                })
+                                }
+                              </select>
+                            </div>
+                            <div className="flex-1 text-xs">
+                              <div className="text-grey-darker">{"Chiusura"}</div>
+                              <select onChange={({ target }) => setMercoledi({ ...mercolediOrari, end: target.value })} className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm">
+                                <option disabled></option>
+                                {hours !== null && hours.map((item, index) => {
+                                  return (
+                                    <option value={item}>{item}</option>
+                                  )
+                                })
+                                }
+                              </select>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div className="flex">
-                      <div className="m-2 flex-row content-start justify-items-start justify-center">
+                      <div className="m-2 flex-row content-start justify-items-start justify-center border-t border-l border-r border-gray-400 rounded">
                         <div className="flex-1 text-grey-darker">{"Giovedi"}</div>
-                        <div className="flex-1 text-xs">{""}</div>
+                        <div className="text-xs border-t border-b border-gray-400 px-2 py-2">
+                          <div>
+                            <label className="inline-flex items-center">
+                              <input type="checkbox" class="form-checkbox h-4 w-4" value="off" onClick={() => handleOptionChange("off", 3)} checked={giovedi == "off"} />
+                              <span className="ml-2 text-xs font-mono text-red-400">Chiuso</span>
+                            </label>
+                          </div>
+                          <div>
+                            <label className="inline-flex items-center">
+                              <input type="checkbox" class="form-checkbox h-4 w-4" value="on" onClick={() => handleOptionChange("on", 3)} checked={giovedi == "on"} />
+                              <span className="ml-2 text-xs font-mono text-green-700">Aperto</span>
+                            </label>
+                          </div>
+                        </div>
+                        {giovedi == "on" && (
+                          <div className="flex flex-row border-b border-gray-400 pb-2 pt-2 px-2 content-center justify-center">
+                            <div className="flex-1 text-xs pr-2">
+                              <div className="text-grey-darker">{"Apertura"}</div>
+                              <select onChange={({ target }) => setGiovedi({ ...giovediOrari, start: target.value })} className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm">
+                                <option disabled></option>
+                                {hours !== null && hours.map((item, index) => {
+                                  return (
+                                    <option value={item}>{item}</option>
+                                  )
+                                })
+                                }
+                              </select>
+                            </div>
+                            <div className="flex-1 text-xs">
+                              <div className="text-grey-darker">{"Chiusura"}</div>
+                              <select onChange={({ target }) => setGiovedi({ ...giovediOrari, end: target.value })} className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm">
+                                <option disabled></option>
+                                {hours !== null && hours.map((item, index) => {
+                                  return (
+                                    <option value={item}>{item}</option>
+                                  )
+                                })
+                                }
+                              </select>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                      <div className="m-2 flex-row content-start justify-items-start justify-center">
+                      <div className="m-2 flex-row content-start justify-items-start justify-center border-t border-l border-r border-gray-400 rounded">
                         <div className="flex-1 text-grey-darker">{"Venerdì"}</div>
-                        <div className="flex-1 text-xs">{""}</div>
+                        <div className="text-xs border-t border-b border-gray-400 px-2 py-2">
+                          <div>
+                            <label className="inline-flex items-center">
+                              <input type="checkbox" class="form-checkbox h-4 w-4" value="off" onClick={() => handleOptionChange("off", 4)} checked={venerdi == "off"} />
+                              <span className="ml-2 text-xs font-mono text-red-400">Chiuso</span>
+                            </label>
+                          </div>
+                          <div>
+                            <label className="inline-flex items-center">
+                              <input type="checkbox" class="form-checkbox h-4 w-4" value="on" onClick={() => handleOptionChange("on", 4)} checked={venerdi == "on"} />
+                              <span className="ml-2 text-xs font-mono text-green-700">Aperto</span>
+                            </label>
+                          </div>
+                        </div>
+                        {venerdi == "on" && (
+                          <div className="flex flex-row border-b border-gray-400 pb-2 pt-2 px-2 content-center justify-center">
+                            <div className="flex-1 text-xs pr-2">
+                              <div className="text-grey-darker">{"Apertura"}</div>
+                              <select onChange={({ target }) => setVenerdi({ ...venerdiOrari, start: target.value })} className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm">
+                                <option disabled></option>
+                                {hours !== null && hours.map((item, index) => {
+                                  return (
+                                    <option value={item}>{item}</option>
+                                  )
+                                })
+                                }
+                              </select>
+                            </div>
+                            <div className="flex-1 text-xs">
+                              <div className="text-grey-darker">{"Chiusura"}</div>
+                              <select onChange={({ target }) => setVenerdi({ ...venerdiOrari, end: target.value })} className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm">
+                                <option disabled></option>
+                                {hours !== null && hours.map((item, index) => {
+                                  return (
+                                    <option value={item}>{item}</option>
+                                  )
+                                })
+                                }
+                              </select>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                      <div className="m-2 flex-row content-start justify-items-start justify-center">
+                      <div className="m-2 flex-row content-start justify-items-start justify-center border-t border-l border-r border-gray-400 rounded">
                         <div className="flex-1 text-grey-darker">{"Sabato"}</div>
-                        <div className="flex-1 text-xs">{""}</div>
+                        <div className="text-xs border-t border-b border-gray-400 px-2 py-2">
+                          <div>
+                            <label className="inline-flex items-center">
+                              <input type="checkbox" class="form-checkbox h-4 w-4" value="off" onClick={() => handleOptionChange("off", 5)} checked={sabato == "off"} />
+                              <span className="ml-2 text-xs font-mono text-red-400">Chiuso</span>
+                            </label>
+                          </div>
+                          <div>
+                            <label className="inline-flex items-center">
+                              <input type="checkbox" class="form-checkbox h-4 w-4" value="on" onClick={() => handleOptionChange("on", 5)} checked={sabato == "on"} />
+                              <span className="ml-2 text-xs font-mono text-green-700">Aperto</span>
+                            </label>
+                          </div>
+                        </div>
+                        {sabato == "on" && (
+                          <div className="flex flex-row border-b border-gray-400 pb-2 pt-2 px-2 content-center justify-center">
+                            <div className="flex-1 text-xs pr-2">
+                              <div className="text-grey-darker">{"Apertura"}</div>
+                              <select onChange={({ target }) => setSabato({ ...sabatoOrari, start: target.value })} className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm">
+                                <option disabled></option>
+                                {hours !== null && hours.map((item, index) => {
+                                  return (
+                                    <option value={item}>{item}</option>
+                                  )
+                                })
+                                }
+                              </select>
+                            </div>
+                            <div className="flex-1 text-xs">
+                              <div className="text-grey-darker">{"Chiusura"}</div>
+                              <select onChange={({ target }) => setSabato({ ...sabatoOrari, end: target.value })} className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm">
+                                <option disabled></option>
+                                {hours !== null && hours.map((item, index) => {
+                                  return (
+                                    <option value={item}>{item}</option>
+                                  )
+                                })
+                                }
+                              </select>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div className="flex-2">
-                      <div className="m-2 flex-row content-start justify-items-start justify-center">
+                      <div className="m-2 flex-row content-start justify-items-start justify-center border-t border-l border-r border-gray-400 rounded">
                         <div className="flex-1 text-grey-darker">{"Domenica"}</div>
-                        <div className="flex-1 text-xs">{""}</div>
+                        <div className="text-xs border-t border-b border-gray-400 px-2 py-2">
+                          <div>
+                            <label className="inline-flex items-center">
+                              <input type="checkbox" class="form-checkbox h-4 w-4" value="off" onClick={() => handleOptionChange("off", 6)} checked={domenica == "off"} />
+                              <span className="ml-2 text-xs font-mono text-red-400">Chiuso</span>
+                            </label>
+                          </div>
+                          <div>
+                            <label className="inline-flex items-center">
+                              <input type="checkbox" class="form-checkbox h-4 w-4" value="on" onClick={() => handleOptionChange("on", 6)} checked={domenica == "on"} />
+                              <span className="ml-2 text-xs font-mono text-green-700">Aperto</span>
+                            </label>
+                          </div>
+                        </div>
+                        {domenica == "on" && (
+                          <div className="flex flex-row border-b border-gray-400 pb-2 pt-2 px-2 content-center justify-center">
+                            <div className="flex-1 text-xs pr-2">
+                              <div className="text-grey-darker">{"Apertura"}</div>
+                              <select onChange={({ target }) => setDomenica({ ...domenicaOrari, start: target.value })} className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm">
+                                <option disabled></option>
+                                {hours !== null && hours.map((item, index) => {
+                                  return (
+                                    <option value={item}>{item}</option>
+                                  )
+                                })
+                                }
+                              </select>
+                            </div>
+                            <div className="flex-1 text-xs">
+                              <div className="text-grey-darker">{"Chiusura"}</div>
+                              <select onChange={({ target }) => setDomenica({ ...domenicaOrari, end: target.value })} className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm">
+                                <option disabled></option>
+                                {hours !== null && hours.map((item, index) => {
+                                  return (
+                                    <option value={item}>{item}</option>
+                                  )
+                                })
+                                }
+                              </select>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="col-span-10">
-                  <label className="block text-sm text-left text-gray-700 font-medium mb-2">Categorie di Servizi</label>
-                  {/*<input id="billingAddress" className="form-input block h-10 mt-1 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm" placeholder="1234 Main Street" />*/}
-                  {/*<input id="billingAddress2" className="form-input block h-10 mt-1 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm" placeholder="Apartment, studio, or floor" />*/}
-                </div>
+                {/*<div className="col-span-10">*/}
+                {/*<label className="block text-sm text-left text-gray-700 font-medium mb-2">Categorie di Servizi</label>*/}
+                {/*<input id="billingAddress" className="form-input block h-10 mt-1 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm" placeholder="1234 Main Street" />*/}
+                {/*<input id="billingAddress2" className="form-input block h-10 mt-1 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm" placeholder="Apartment, studio, or floor" />*/}
+                {/*</div>*/}
                 {/*<div className="col-span-10 sm:col-span-4">
                   <label htmlFemail" className="block text-sm text-left text-gray-700 font-medium mb-2">Email</label>
                   <input id="email" className="form-input block h-10 mt-1 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm" />
@@ -475,7 +889,7 @@ const CreateCommerciante = () => {
                   <label htmlFbillingCountry" className="block text-sm text-left text-gray-700 font-medium mb-2">Economia</label>
                 </div>*/}
                 {/*className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm"*/}
-                <div className="col-span-10">
+                {/*<div className="col-span-10">
                   <h4>Fatturazione</h4>
                   <hr />
                 </div>
@@ -496,10 +910,10 @@ const CreateCommerciante = () => {
                     {"CVC"}
                     <input className="form-input block h-10 mt-1 w-full items-center border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out" aria-hidden="true" aria-label=" " autoComplete="false" maxLength="4" />
                   </label>
-                </div>
-                <p className="col-span-10 text-xs text-gray-400">
+                </div>*/}
+                {/*<p className="col-span-10 text-xs text-gray-400">
                   {"Autorizzo ad inviare istruzioni all'istituto finanziario che ha emesso la mia carta per accettare pagamenti dal conto della mia carta in conformità con i termini del mio contratto."}
-                </p>
+                </p>*/}
               </div>
             </div>
             <div className="pt-3 sm:pt-5 border-t border-gray-200 sm:flex sm:flex-row-reverse">
