@@ -6,14 +6,14 @@ export default function Home() {
     <div className="bg-white shadow rounded-md">
       <div className="px-4 py-5 sm:p-6">
         <h3 className="text-xl leading-6 font-semibold text-center sm:text-left bg-clip-text text-transparent bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
-          Benvenuto! Iniziamo subito!
+          Sei dentro! Bravo, vuoi un applauso?
       </h3>
         <div className="mt-2 sm:flex sm:items-start sm:justify-between">
-          <div className="text-sm leading-6 text-gray-500">
+          {/*<div className="text-sm leading-6 text-gray-500">
             <p>
               {"Step one of setting up your autonomous system is creating a virtual machine to act as a router. The next few pages will guide you through creating a VM to your needs."}
             </p>
-          </div>
+          </div>*/}
           {/*<Link href="/prenotazioni/crea">
             <button
               type="button"
