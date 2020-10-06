@@ -28,7 +28,7 @@ const Login = () => {
     } catch (error) {
       setNotification(error.message)
       setTimeout(() => {
-        setNotification('')
+        setNotification(error.message)
       }, 2000);
       console.log("---loginError---", error);
     }
@@ -50,7 +50,7 @@ const Login = () => {
           {"BeautyShop"}
         </h2>
         <p className="mt-2 text-center text-sm leading-5 text-gray-600 max-w">
-        <Link href="/register" className="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">{" Non hai un account? Registrati ora"}</Link>
+          <Link href="/register" className="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">{" Non hai un account? Registrati ora"}</Link>
         </p>
       </div>
       <div className="mt-8 mx-auto w-full max-w-xs sm:max-w-sm md:max-w-md">
@@ -113,18 +113,18 @@ const Login = () => {
           </form>
         </div>
       </div>
-      {/*<form onSubmit={handleLogin}>
-        Email
-        <input type="text" value={username}
-          onChange={({ target }) => setUsername(target.value)} />
-        <br />
-        Password
-        <input type="password" value={password}
-          onChange={({ target }) => setPassword(target.value)} />
-        <br />
-        <button type="submit">Accedi</button>
-      </form>*/}
     </div>
   )
 }
 export default Login
+{/*<form onSubmit={handleLogin}>
+  Email
+  <input type="text" value={username}
+    onChange={({ target }) => setUsername(target.value)} />
+  <br />
+  Password
+  <input type="password" value={password}
+    onChange={({ target }) => setPassword(target.value)} />
+  <br />
+  <button type="submit">Accedi</button>
+</form>*/}

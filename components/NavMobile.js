@@ -24,7 +24,25 @@ const NavMobile = () => {
                   className={`${RenderTitle.title === 'Commercianti' ? "bg-gray-200" : ""} text-gray-700 w-full mt-px group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded-md hover:text-gray-900 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150`}
                 >
                   <i className="mr-2 h-3 w-10 fa fa-building fa-lg text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150"></i>
-                  Commercianti
+                  {"Commercianti"}
+                </button>
+              </Link>
+              <Link href="/servizi">
+                <button
+                  type="button"
+                  className={`${RenderTitle.title === 'Categorie di Servizi' ? "bg-gray-200" : ""} text-gray-700 w-full mt-px group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded-md hover:text-gray-900 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150`}
+                >
+                  <i className="mr-2 h-3 w-10 categorieServizi fa-lg text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150"></i>
+                  {"Cat. di Servizi"}
+                </button>
+              </Link>
+              <Link href="/servizicommercianti">
+                <button
+                  type="button"
+                  className={`${RenderTitle.title === 'Servizi commercianti' ? "bg-gray-200" : ""} text-gray-700 w-full mt-px group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded-md hover:text-gray-900 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150`}
+                >
+                  <i className="mr-2 h-3 w-10 categorieAllServizi fa-lg text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150"></i>
+                  {"Tutti i servizi"}
                 </button>
               </Link>
               {/*<Link href="/prenotazioni">

@@ -15,3 +15,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.categorieServizi::after {
+  content: '\f133';
+}
+
+.categorieAllServizi::after {
+  /*content: '\f2c5';*/
+  content: '\f0ab';
+}
+
+.checkbox-on {
+  filter: hue-rotate(251deg) brightness(1.0);
+}
+
+.checkbox-off {
+  filter: hue-rotate(120deg) brightness(1.0);
+}
