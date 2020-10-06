@@ -4,7 +4,8 @@ import Link from 'next/link';
 
 const BreadCrumb = () => {
   const { RenderTitle, enabledIcon } = useContext(RouteContext);
-  console.log("---RenderTitle---", RenderTitle)
+  //console.log("---RenderTitle---", RenderTitle)
+  console.log("---enabledIcon---", enabledIcon)
   return (
     <>
       <div className="flex items-center h-10 my-1 sm:my-3 lg:my-3 justify-between flex-wrap sm:flex-no-wrap text-sm font-medium">

@@ -66,12 +66,15 @@ export default function MyApp({ Component, pageProps }) {
         break;
       case "/users/login":
         title = "Login";
+        setEnabled(false);
         break;
       case "/servizi":
         title = "Categorie di Servizi";
+        setEnabled(false);
         break;
       case "/servizicommercianti":
         title = "Servizi commercianti";
+        setEnabled(false);
         break;
       //default:
       //  title = "";
