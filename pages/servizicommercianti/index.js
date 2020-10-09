@@ -488,10 +488,16 @@ function ServiziIndex() {
 
   const columns = React.useMemo(
     () => [
+      //{
+      //  id: "order",
+      //  Header: "Posizione",
+      //  accessor: "order"
+      //},
       {
-        id: "order",
-        Header: "Posizione",
-        accessor: "order"
+        id: "commerciante",
+        Header: "Commerciante",
+        accessor: "commerciante",
+        Cell: d => <RenderCommerciante d={d.cell.value} />,
       },
       {
         id: "nome",
@@ -504,22 +510,17 @@ function ServiziIndex() {
         accessor: "servizi",
         Cell: d => <CategoriaServizio value={d.row.original.servizi} />
       },
-      {
-        id: "stato",
-        Header: "Stato",
-        accessor: d => d.enabled ? 'Visibile in App' : 'Non visible in App'
-      },
-      {
-        id: "costo",
-        Header: "Costo",
-        accessor: d => `${parseInt(d.cost).toFixed(2)} €`,
-      },
-      {
-        id: "commerciante",
-        Header: "Commerciante",
-        accessor: "commerciante",
-        Cell: d => <RenderCommerciante d={d.cell.value} />,
-      }
+      //{
+      //  id: "stato",
+      //  Header: "Stato",
+      //  accessor: d => d.enabled ? 'Visibile in App' : 'Non visible in App'
+      //},
+      //{
+      //  id: "costo",
+      //  Header: "Costo",
+      //  accessor: d => `${parseInt(d.cost).toFixed(2)} €`,
+      //},
+
     ],
     [commercianti, servizi]
   );
