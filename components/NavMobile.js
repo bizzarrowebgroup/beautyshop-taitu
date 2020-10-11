@@ -42,7 +42,16 @@ const NavMobile = () => {
                   className={`${RenderTitle.title === 'Servizi commercianti' ? "bg-gray-200" : ""} text-gray-700 w-full mt-px group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded-md hover:text-gray-900 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150`}
                 >
                   <i className="mr-2 h-3 w-10 categorieAllServizi fa-lg text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150"></i>
-                  {"Tutti i servizi"}
+                  {"Servizi"}
+                </button>
+              </Link>
+              <Link href="/prenotazioni">
+                <button
+                  type="button"
+                  className={`${RenderTitle.title === 'Prenotazioni' ? "bg-gray-200" : ""} text-gray-700 w-full mt-px group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded-md hover:text-gray-900 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150`}
+                >
+                  <i className="mr-2 h-3 w-10 categorieAllServizi fa-lg text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150"></i>
+                  {"Prenotazioni"}
                 </button>
               </Link>
               {/*<Link href="/prenotazioni">

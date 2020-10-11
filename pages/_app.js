@@ -76,6 +76,10 @@ export default function MyApp({ Component, pageProps }) {
         title = "Servizi commercianti";
         setEnabled(false);
         break;
+      case "/prenotazioni":
+        title = "Prenotazioni";
+        setEnabled(false);
+        break;
       //default:
       //  title = "";
       //  subTitle = "";
