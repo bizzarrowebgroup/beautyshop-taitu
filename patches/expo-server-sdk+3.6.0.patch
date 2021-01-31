@@ -1,0 +1,14 @@
+diff --git a/node_modules/expo-server-sdk/build/ExpoClient.js b/node_modules/expo-server-sdk/build/ExpoClient.js
+index f1c4fe5..7fb49a9 100644
+--- a/node_modules/expo-server-sdk/build/ExpoClient.js
++++ b/node_modules/expo-server-sdk/build/ExpoClient.js
+@@ -20,7 +20,8 @@ const assert = require("assert");
+ const node_fetch_1 = require("node-fetch");
+ const promiseLimit = require("promise-limit");
+ const zlib = require("zlib");
+-const BASE_URL = 'https://exp.host';
++// const BASE_URL = 'https://exp.host';
++const BASE_URL = 'http://localhost:8010/proxy';
+ const BASE_API_URL = `${BASE_URL}/--/api/v2`;
+ /**
+  * The max number of push notifications to be sent at once. Since we can't automatically upgrade

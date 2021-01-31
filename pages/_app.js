@@ -32,7 +32,7 @@ export default function MyApp({ Component, pageProps }) {
     fire.auth()
       .signOut()
       .then(() => {
-        console.log("---logOut ok---");
+        // console.log("---logOut ok---");
         //setNotification('Logged out')
         //setTimeout(() => {
         //  setNotification('')
@@ -41,7 +41,7 @@ export default function MyApp({ Component, pageProps }) {
   }
   const RenderTitle = useMemo(() => {
     let title = "", subTitle = "";
-    console.log("--router--", router.pathname)
+    // console.log("--router--", router.pathname)
     //console.log("--actualRoute--", actualRoute)
     switch (router.pathname) {
       case "/":
@@ -78,6 +78,10 @@ export default function MyApp({ Component, pageProps }) {
         break;
       case "/prenotazioni":
         title = "Prenotazioni";
+        setEnabled(false);
+        break;
+      case "/fotocomm":
+        title = "Foto commercianti";
         setEnabled(false);
         break;
       //default:

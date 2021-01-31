@@ -2,23 +2,56 @@ import React, { useState, useEffect, useMemo } from 'react'
 import fire from '../../config/fire-config';
 import { useTable, useSortBy } from "react-table";
 import moment from 'moment';
-
-const backendURL = "http://localhost:3030/api/v1/";
+import ModalEditPrenotazione from '../../components/ModalEditPrenotazione';
+import { Expo } from 'expo-server-sdk';
 
 const Prenotazioni = () => {
+  const [loading, setLoading] = useState(true);
+
+
   const [prenotazioni, setPrenotazioni] = useState(undefined);
-  const [utenti, setUtenti] = useState(undefined);
-  //const [modalEditShowing, setEditModal] = useState(false);
-  //const [editID, setEdit] = useState(null);
-  //const [modalEditServiziData, setEditData] = useState(null);
-  //const [modalEditReloading, setReloading] = useState(false);
+  // const [utenti, setUtenti] = useState(undefined);
+  const [modalEditShowing, setEditModal] = useState(false);
+  const [editID, setEdit] = useState(null);
+  const [modalEditServiziData, setEditData] = useState(null);
+  // const [modalEditReloading, setReloading] = useState(false);
   //const [deleteItemId, setDelete] = useState(undefined);
   //const [modalShow, setModalDetails] = useState(false);
 
   useEffect(() => {
     moment.locale('it')
-    initPage()
+    try {
+      initPage()
+    } catch (error) {
+      console.log("error", error)
+      setLoading(false)
+    }
   }, []);
+
+  useEffect(() => {
+    let observer = undefined;
+    checkNewPrenotazioni(observer);
+    return () => {
+      if (observer !== undefined) observer();
+    };
+  }, [])
+
+  const checkNewPrenotazioni = async (observer) => {
+    return observer = fire.firestore().collection('prenotazioni').onSnapshot(querySnapshot => {
+      querySnapshot.docChanges().forEach(change => {
+        if (change.type === 'modified') {
+          setLoading(true)
+          setEditModal(false)
+          initPage()
+        }
+        if (change.type === 'removed') {
+          setLoading(true)
+          setEditModal(false)
+          initPage()
+        }
+      });
+    });
+  }
 
   const initPage = async () => {
     await fire.firestore()
@@ -26,6 +59,7 @@ const Prenotazioni = () => {
       .onSnapshot(async (snap) => {
         let prenotazioni = snap.docs.map(doc => ({
           id: doc.id,
+          prenId: doc.id,
           ...doc.data()
         }));
         if (prenotazioni.length > 0) {
@@ -37,140 +71,39 @@ const Prenotazioni = () => {
               let id = Commerciante.id;
               commercianti.push({
                 id,
+                commId: id,
                 nomeCommerciante: data.title
               });
             }
           }
-          //let realPrenotazioni = prenotazioni.map((item, i) => Object.assign({}, item, commercianti[i]));
           let realPrenotazioni = prenotazioni.map((item, i) => Object.assign(item, commercianti.find(y => y.id == item.commercianteId)));
-          //console.log("realPrenotazioni", realPrenotazioni);
-          let servizi = [];
-          for (let data of realPrenotazioni) {
-            //console.log(data,"--data--")
-            let Servizio = await fire.firestore().collection('servizicommercianti').doc(data.serviceId).get();
-            if (Servizio !== undefined) {
-              let dataL = Servizio.data();
-              let id = Servizio.id;
-              if (dataL !== undefined) {
-                //console.log("---daTs---", dataL)
-                servizi.push({
-                  id,
-                  nomeServizio: dataL?.titolo ? dataL?.titolo : ""
-                });
-              }
-            }
-          }
-          let final = realPrenotazioni.map((item, i) => Object.assign(item, servizi.find(y => y.id == item.serviceId)));
 
           let utenti = [];
-          for (let data of final) {
+          for (let data of realPrenotazioni) {
             let UtentiApp = await fire.firestore().collection('utentiApp').where('userId', "==", data.userId).get();
             if (UtentiApp !== undefined) {
-              //console.log(UtentiApp);
               UtentiApp.forEach(async (doc) => {
-                //console.log(doc.id, " => ", doc.data());
                 let uaData = doc.data();
-                //let uId = doc.id;
                 if (uaData !== undefined) {
-                  let uaRData = await fetchUser(uaData.userId);
-                  //console.log("--uaRData",uaRData)
-                  let nome = uaRData.displayName;
                   utenti.push({
-                    id: uaRData.uid,
-                    nomeUtente: nome
+                    id: uaData.userId,
+                    userId: uaData.userId,
+                    nomeUtente: uaData.displayName
                   })
                 }
               });
             }
           }
-          //console.log("utenti", utenti)
-          let realFinal = final.map((item, i) => Object.assign(item, utenti.find(y => y.id == item.userId)));
+          let realFinal = realPrenotazioni.map((item, i) => Object.assign(item, utenti.find(y => y.id == item.userId)));
 
-          //let final = realPrenotazioni.map((item, i) => Object.assign({}, item, servizi[i]));
-          console.log("realFinal", realFinal)
+          // console.log("realFinal", realFinal)
           setPrenotazioni(realFinal);
-          //console.log(realPrenotazioni, "--realPrenotazioni--")
+          setLoading(false)
+
         }
-        //setPrenotazioni(prenotazioni);
       });
-    //await fire.firestore()
-    //  .collection('utentiApp')
-    //  .onSnapshot(async (snap) => {
-    //    let utenti = snap.docs.map(doc => ({
-    //      id: doc.id,
-    //      ...doc.data()
-    //    }));
-    //    if (utenti !== undefined) {
-    //      let finalUtenti = [];
-    //      for (let index = 0; index < utenti.length; index++) {
-    //        const utente = utenti[index];
-    //        if (utente.userId) {
-    //          //console.log("--utente--", utente);
-    //          let dataUser = await fetchUser(utente.userId);
-    //          if (dataUser !== undefined) {
-    //            if (dataUser.uid == utente.userId) {
-    //              var element = {};
-    //              element = dataUser;
-    //              finalUtenti.push({ ...element });
-    //            }
-    //          }
-    //        }
-    //      }
-    //      let realFinalUtenti = utenti.map((item, i) => Object.assign({}, item, finalUtenti[i]));
-    //      if (realFinalUtenti.length > 0) setUtenti(realFinalUtenti);
-    //    }
-    //  });
   }
-  const fetchUser = async (id) => {
-    try {
-      if (id) {
-        let data = { id: id };
-        const res = await fetch(
-          backendURL,
-          {
-            method: 'POST',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-              'Accept': 'application/json, text/plain',
-              'Content-Type': 'application/json;charset=UTF-8',
-            },
-            body: JSON.stringify(data)
-          }
-        );
-        const result = await res.json();
-        setTimeout(() => null, 0);
-        if (result) {
-          return result;
-        } else {
-          return undefined;
-        }
-      } else return undefined;
-    } catch (e) {
-      console.log("error-fetch", e);
-      return undefined;
-    }
-  }
-  //const RenderUtente = ({ value }) => {
-  //  let nomeUtente = undefined;
-  //  if (utenti !== undefined) {
-  //    nomeUtente = utenti.filter(item => {
-  //      if (item.userId === value) return [item];
-  //    });
-  //  }
-  //  if (nomeUtente !== undefined) {
-  //    let dati = nomeUtente[0];
-  //    let nome = dati?.displayName;
-  //    return (
-  //      <>
-  //        <div>{dati?.phone}</div>
-  //        <div>{nome?.toString().toUpperCase()}</div>
-  //      </>
-  //    );
-  //  } else {
-  //    return (<></>);
-  //  }
-  //}
+
   const columns = useMemo(
     () => [
       {
@@ -202,56 +135,196 @@ const Prenotazioni = () => {
         Header: "Commerciante",
         accessor: "nomeCommerciante",
       },
-      {
-        id: "servizio",
-        Header: "Servizio",
-        accessor: "nomeServizio",
-      },
+      // {
+      //   id: "servizio",
+      //   Header: "Servizio",
+      //   accessor: "nomeServizio",
+      // },
       {
         id: "stato",
         Header: "Stato",
-        accessor: 'status',
-        Cell: ({ row }) => {
+        accessor: 'state',
+        Cell: ({ row: { original: { state } } }) => {
+          // console.log("---state---", state)
+          let realStatus = "", realStatusColor = "";
+          switch (state) {
+            case 0:
+              realStatus = "PRESA IN CARICO";
+              realStatusColor = "bg-yellow-700";
+              break;
+            case 1:
+              realStatus = "CONFERMATA";
+              realStatusColor = "bg-green-400";
+              break;
+            case 2:
+              realStatus = "CONCLUSA";
+              realStatusColor = "bg-yellow-400";
+              break;
+            case 3:
+              realStatus = "ANNULLATA";
+              realStatusColor = "bg-red-600";
+              break;
+          }
           return (
             <div>
-              <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">{"REQUEST_APPROVAL"}</span>
+              <span className={`flex rounded-full ${realStatusColor} uppercase px-2 py-1 text-xs font-bold mr-3`}>{realStatus}</span>
             </div>
           )
         }
       },
     ],
-    [prenotazioni, utenti]
+    [prenotazioni]
   );
 
-  //const createServizio = async (data) => {
-  //  setReloading(true);
-  //  try {
-  //    await fire.firestore().collection('servizi').add({ ...data, timestamp: Date.now() });
-  //    setTimeout(() => {
-  //      setReloading(false);
-  //    }, 500);
-  //  } catch (error) {
-  //    setReloading(false);
-  //    console.log(error, "errror")
-  //  }
-  //}
+  const onConfirmPren = async ({ id, userId, slot_date, slot_time, nomeCommerciante }) => {
+    // console.log("---conferma pren---", { id, userId, slot_date, slot_time, nomeCommerciante });
+    let db = fire.firestore();
+    var objectRef = db.collection("prenotazioni").doc(id);
 
-  //const editServizio = async (id, data) => {
-  //  setReloading(true);
-  //  try {
-  //    await fire.firestore().collection('servizi').doc(id).update({ ...data, timestamp: Date.now() });
-  //    //if (diocan) {
-  //    //  console.log("diocan", diocan)
-  //    //}
-  //    setTimeout(() => {
-  //      setReloading(false);
-  //    }, 500);
-  //  } catch (error) {
-  //    setReloading(false);
-  //    console.log(error, "errror")
-  //  }
-  //  //if (updateData) console.log("---updateData---", JSON.stringify(updateData))
-  //}
+    const citiesRef = db.collection('notificationsUsers');
+    const snapshot = await citiesRef.where('userId', '==', userId).get();
+    if (snapshot.empty) {
+      // non mando notifica
+      console.log('Non trovo utente con notifica.');
+    } else {
+      // mando notifica
+      snapshot.forEach(doc => {
+        let data = doc.data();
+        let pushToken = data.token ? data.token : "";
+        let expo = new Expo();
+
+        // Create the messages that you want to send to clients
+        let messages = [];
+        // for (let pushToken of somePushTokens) {
+        // Each push token looks like ExponentPushToken[xxxxxxxxxxxxxxxxxxxxxx]
+
+        // Check that all your push tokens appear to be valid Expo push tokens
+        if (!Expo.isExpoPushToken(pushToken)) {
+          console.error(`Push token ${pushToken} is not a valid Expo push token`);
+          // continue;
+        }
+
+        messages.push({
+          to: pushToken,
+          sound: 'default',
+          title: 'Appuntamento Confermato ✅',
+          body: `Il tuo appuntamento da ${nomeCommerciante} per ${moment(slot_date).format("dddd DD MMMM YYYY")} alle ${slot_time} è stato confermato.`,
+          // data: { withSome: 'data' },
+        })
+        // }
+
+        let chunks = expo.chunkPushNotifications(messages);
+        let tickets = [];
+        (async () => {
+          // Send the chunks to the Expo push notification service. There are
+          // different strategies you could use. A simple one is to send one chunk at a
+          // time, which nicely spreads the load out over time:
+          for (let chunk of chunks) {
+            try {
+              let ticketChunk = await expo.sendPushNotificationsAsync(chunk);
+              console.log(ticketChunk);
+              tickets.push(...ticketChunk);
+              // NOTE: If a ticket contains an error code in ticket.details.error, you
+              // must handle it appropriately. The error codes are listed in the Expo
+              // documentation:
+              // https://docs.expo.io/push-notifications/sending-notifications/#individual-errors
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        })();
+      });
+    }
+
+    objectRef.update({
+      state: 1
+    }).then(() => {
+      // alert("Document successfully updated!")
+    }).catch((error) => {
+      alert("Error updating document: ", error)
+    });
+
+  }
+
+  const onDeletePren = async({ id, userId, nomeCommerciante }) => {
+    // alert("pren cancellata")
+    let db = fire.firestore();
+    var objectRef = db.collection("prenotazioni").doc(id);
+
+    const citiesRef = db.collection('notificationsUsers');
+    const snapshot = await citiesRef.where('userId', '==', userId).get();
+    if (snapshot.empty) {
+      // non mando notifica
+      console.log('No matching documents.');
+    } else {
+      // mando notifica
+      snapshot.forEach(doc => {
+        let data = doc.data();
+        let pushToken = data.token ? data.token : "";
+        let expo = new Expo();
+
+        // Create the messages that you want to send to clients
+        let messages = [];
+        // for (let pushToken of somePushTokens) {
+        // Each push token looks like ExponentPushToken[xxxxxxxxxxxxxxxxxxxxxx]
+
+        // Check that all your push tokens appear to be valid Expo push tokens
+        if (!Expo.isExpoPushToken(pushToken)) {
+          console.error(`Push token ${pushToken} is not a valid Expo push token`);
+          // continue;
+        }
+
+        messages.push({
+          to: pushToken,
+          sound: 'default',
+          title: 'Appuntamento Cancellato ❌',
+          body: `Il tuo appuntamento da ${nomeCommerciante} è stato annullato.`,
+          // data: { withSome: 'data' },
+        })
+        // }
+
+        let chunks = expo.chunkPushNotifications(messages);
+        let tickets = [];
+        (async () => {
+          // Send the chunks to the Expo push notification service. There are
+          // different strategies you could use. A simple one is to send one chunk at a
+          // time, which nicely spreads the load out over time:
+          for (let chunk of chunks) {
+            try {
+              let ticketChunk = await expo.sendPushNotificationsAsync(chunk);
+              console.log(ticketChunk);
+              tickets.push(...ticketChunk);
+              // NOTE: If a ticket contains an error code in ticket.details.error, you
+              // must handle it appropriately. The error codes are listed in the Expo
+              // documentation:
+              // https://docs.expo.io/push-notifications/sending-notifications/#individual-errors
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        })();
+      });
+    }
+
+    objectRef.update({
+      state: 3
+    }).then(() => {
+      // alert("Document successfully updated!")
+    }).catch((error) => {
+      alert("Error updating document: ", error)
+    });
+    // console.log("---cancella pren---", { id, userId, nomeCommerciante });
+  }
+  if (loading) {
+    return (
+      <div className="flex h-screen bg-rose-600">
+        <div className="m-auto">
+          <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-64 w-64"></div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div>
       <div className="flex-shrink-0">
@@ -289,18 +362,18 @@ const Prenotazioni = () => {
               desc: true
             }
           ]}
-        //toggleEdit={(id, data) => {
-        //  setEditModal(true);
-        //  setEdit(id);
-        //  setEditData(data);
-        //}}
+          toggleEdit={(id, data) => {
+            setEditModal(true);
+            setEdit(id);
+            setEditData(data);
+          }}
         //toggleModify={(id, data) => {
         //  setModalDetails(!modalShow);
         //  setDelete(id)
         //}}
         />
       )}
-      {/*<ModalEditServizi
+      <ModalEditPrenotazione
         isEnabled={modalEditShowing}
         data={modalEditServiziData}
         onCancel={() => {
@@ -308,14 +381,16 @@ const Prenotazioni = () => {
           setEdit(null);
           setEditData(null)
         }}
-        onConfirm={(isNew, data) => {
-          if (isNew) createServizio(data);
-          else editServizio(editID, data);
-        }}
-        isReloading={modalEditReloading}
-        dataLenght={servizi?.length > 0 ? servizi.length : 0}
+        onConfirm={(id, userId, slot_date, slot_time, nomeCommerciante) => onConfirmPren({ id, userId, slot_date, slot_time, nomeCommerciante })}
+        onDelete={(id, userId, nomeCommerciante) => onDeletePren({ id, userId, nomeCommerciante })}
+      // onConfirm={(isNew, data) => {
+      //   if (isNew) createServizio(data);
+      //   else editServizio(editID, data);
+      // }}
+      // isReloading={modalEditReloading}
+      // dataLenght={servizi?.length > 0 ? servizi.length : 0}
       />
-      <Modal
+      {/*<Modal
         isEnabled={modalShow}
         title="Attenzione" desc="Sei sicuro di voler eliminare il seguente commericante?"
         onConfirm={async () => {
