@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "next dev",
-    "nextdevlan": "next dev -H 0.0.0.0",
+    "nextdevlan": "next dev -H 0.0.0.0 & lcp --proxyUrl https://exp.host",
     "nextbuild": "next build",
     "nextstart": "next start",
     "postinstall": "npx patch-package" 
