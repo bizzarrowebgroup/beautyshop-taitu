@@ -17,7 +17,6 @@ function ModalEditServizi({ isEnabled, data, onCancel, onConfirm, dataLenght, is
         obj['label'] = index;
         obj['value'] = index;
         arr.push(obj);
-        //console.log(index, "--length--");
       }
       if (arr.length > 0) {
         return (
@@ -28,7 +27,6 @@ function ModalEditServizi({ isEnabled, data, onCancel, onConfirm, dataLenght, is
         )
       }
     }
-    //console.log(enabled, "--enabled--")
     const handleOptionChange = () => {
       setEnabled(!enabled);
     }
@@ -76,7 +74,6 @@ function ModalEditServizi({ isEnabled, data, onCancel, onConfirm, dataLenght, is
                 <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" >
                   {"Ordine"}
                 </label>
-                {/*<input className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" type="text" placeholder={"Inserisci il nome"} value={data.label} />*/}
                 {dataLenght > 0 && (
                   <select onChange={({ target }) => setOrdine(Number(target.value))} value={ordine} disabled={data == null} className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm">
                     {renderSelectOrderOptions(dataLenght)}
@@ -106,7 +103,6 @@ function ModalEditServizi({ isEnabled, data, onCancel, onConfirm, dataLenght, is
             <div className="px-4 py-4 flex">
               <div className="m-auto">
                 <button onClick={() => onConfirm(data == null, {
-                  // check se ho data aggiorno altrimenti aggiungo
                   enabled,
                   order: ordine,
                   label
@@ -151,7 +147,6 @@ function Table({ columns, data, toggleEdit, toggleModify }) {
           <thead>
             {headerGroups.map(headerGroup => (
               <tr {...headerGroup.getHeaderGroupProps()}>
-                {/*...column.getHeaderProps()*/}
                 {headerGroup.headers.map(column => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())} className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     {column.render("Header")}
@@ -232,7 +227,6 @@ function ServiziIndex() {
       {
         Header: "Nome Servizo",
         accessor: "label",
-        //Cell: props => <TitoloCommericante value={props} />
       },
       {
         Header: "Stato",
@@ -259,9 +253,6 @@ function ServiziIndex() {
     setReloading(true);
     try {
       await fire.firestore().collection('servizi').doc(id).update({ ...data, timestamp: Date.now() });
-      //if (diocan) {
-      //  console.log("diocan", diocan)
-      //}
       setTimeout(() => {
         setReloading(false);
       }, 500);
@@ -269,7 +260,6 @@ function ServiziIndex() {
       setReloading(false);
       console.log(error, "errror")
     }
-    //if (updateData) console.log("---updateData---", JSON.stringify(updateData))
   }
   return (
     <div>
@@ -316,11 +306,6 @@ function ServiziIndex() {
           toggleModify={(id, data) => {
             setModalDetails(!modalShow);
             setDelete(id)
-            //let index = fotos.findIndex(f => f.commercianti == data.id);
-            //var filteredArray = fotos.filter(f => f.commercianti === data.id);
-            //renderOrari(data.id)
-            //setModalDetailsInfo(data);
-            //setModalFotos(filteredArray);
           }}
         />
       )}

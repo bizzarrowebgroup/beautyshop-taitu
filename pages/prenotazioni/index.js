@@ -10,13 +10,9 @@ const Prenotazioni = () => {
 
 
   const [prenotazioni, setPrenotazioni] = useState(undefined);
-  // const [utenti, setUtenti] = useState(undefined);
   const [modalEditShowing, setEditModal] = useState(false);
   const [editID, setEdit] = useState(null);
   const [modalEditServiziData, setEditData] = useState(null);
-  // const [modalEditReloading, setReloading] = useState(false);
-  //const [deleteItemId, setDelete] = useState(undefined);
-  //const [modalShow, setModalDetails] = useState(false);
 
   useEffect(() => {
     moment.locale('it')
@@ -96,7 +92,6 @@ const Prenotazioni = () => {
           }
           let realFinal = realPrenotazioni.map((item, i) => Object.assign(item, utenti.find(y => y.id == item.userId)));
 
-          // console.log("realFinal", realFinal)
           setPrenotazioni(realFinal);
           setLoading(false)
 
@@ -110,16 +105,13 @@ const Prenotazioni = () => {
         id: "nomeUtente",
         Header: "Utente",
         accessor: "nomeUtente",
-        //Cell: ({ cell: { value } }) => <RenderUtente value={value} />
       },
       {
         id: "slot_date",
         Header: "Data prenotazione",
         accessor: "slot_date",
         Cell: ({ row }) => {
-          //console.log("--row--", row)
           let d = moment(row.original?.slot_date).format('dddd DD MMMM')
-          //let h = moment(row.original?.slot_date).format('HH:mm');
           let slot_time = row.original?.slot_time;
           let slot_end_time = row.original?.slot_end_time;
           return (
@@ -135,17 +127,11 @@ const Prenotazioni = () => {
         Header: "Commerciante",
         accessor: "nomeCommerciante",
       },
-      // {
-      //   id: "servizio",
-      //   Header: "Servizio",
-      //   accessor: "nomeServizio",
-      // },
       {
         id: "stato",
         Header: "Stato",
         accessor: 'state',
         Cell: ({ row: { original: { state } } }) => {
-          // console.log("---state---", state)
           let realStatus = "", realStatusColor = "";
           switch (state) {
             case 0:
@@ -177,7 +163,6 @@ const Prenotazioni = () => {
   );
 
   const onConfirmPren = async ({ id, userId, slot_date, slot_time, nomeCommerciante }) => {
-    // console.log("---conferma pren---", { id, userId, slot_date, slot_time, nomeCommerciante });
     let db = fire.firestore();
     var objectRef = db.collection("prenotazioni").doc(id);
 
@@ -209,9 +194,7 @@ const Prenotazioni = () => {
           sound: 'default',
           title: 'Appuntamento Confermato ✅',
           body: `Il tuo appuntamento da ${nomeCommerciante} per ${moment(slot_date).format("dddd DD MMMM YYYY")} alle ${slot_time} è stato confermato.`,
-          // data: { withSome: 'data' },
         })
-        // }
 
         let chunks = expo.chunkPushNotifications(messages);
         let tickets = [];
@@ -309,11 +292,9 @@ const Prenotazioni = () => {
     objectRef.update({
       state: 3
     }).then(() => {
-      // alert("Document successfully updated!")
     }).catch((error) => {
       alert("Error updating document: ", error)
     });
-    // console.log("---cancella pren---", { id, userId, nomeCommerciante });
   }
   if (loading) {
     return (
@@ -330,7 +311,6 @@ const Prenotazioni = () => {
       <div className="flex-shrink-0">
         <button
           type="button"
-          //onClick={() => setEditModal(!modalEditShowing)}
           className={"inline-flex shadow items-center px-3 py-1 sm:py-2 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"}
         >
           <svg
@@ -367,10 +347,7 @@ const Prenotazioni = () => {
             setEdit(id);
             setEditData(data);
           }}
-        //toggleModify={(id, data) => {
-        //  setModalDetails(!modalShow);
-        //  setDelete(id)
-        //}}
+       
         />
       )}
       <ModalEditPrenotazione
@@ -383,31 +360,7 @@ const Prenotazioni = () => {
         }}
         onConfirm={(id, userId, slot_date, slot_time, nomeCommerciante) => onConfirmPren({ id, userId, slot_date, slot_time, nomeCommerciante })}
         onDelete={(id, userId, nomeCommerciante) => onDeletePren({ id, userId, nomeCommerciante })}
-      // onConfirm={(isNew, data) => {
-      //   if (isNew) createServizio(data);
-      //   else editServizio(editID, data);
-      // }}
-      // isReloading={modalEditReloading}
-      // dataLenght={servizi?.length > 0 ? servizi.length : 0}
       />
-      {/*<Modal
-        isEnabled={modalShow}
-        title="Attenzione" desc="Sei sicuro di voler eliminare il seguente commericante?"
-        onConfirm={async () => {
-          try {
-            const res = await fire.firestore().collection('servizi').doc(deleteItemId).delete();
-            if (res) {
-              console.log("--CANCELLATO OK--");
-            }
-          } catch (error) {
-            console.log(error, "--errorcancellazione--")
-          }
-          setModalDetails(!modalShow);
-        }}
-        onCancel={() => {
-          setModalDetails(!modalShow);
-        }}
-      />*/}
     </div>
   )
 }
@@ -431,7 +384,6 @@ function Table({ columns, data, toggleEdit, toggleModify }) {
           <thead>
             {headerGroups.map(headerGroup => (
               <tr {...headerGroup.getHeaderGroupProps()}>
-                {/*...column.getHeaderProps()*/}
                 {headerGroup.headers.map(column => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())} className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     {column.render("Header")}
@@ -446,8 +398,6 @@ function Table({ columns, data, toggleEdit, toggleModify }) {
                     </span>
                   </th>
                 ))}
-                {/*<th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100">*</th>
-                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100"></th>*/}
               </tr>
             ))}
           </thead>
@@ -461,16 +411,6 @@ function Table({ columns, data, toggleEdit, toggleModify }) {
                       {cell.render("Cell")}
                     </td>;
                   })}
-                  {/*<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right">
-                    <button type="button" className="inline-block text-gray-500 hover:text-gray-700" onClick={() => toggleEdit(row.original.id, row.original)}>
-                      <i className="fa fa-pencil fa-lg transition duration-150"></i>
-                    </button>
-                  </td>
-                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right">
-                    <button type="button" className="inline-block text-gray-500 hover:text-gray-700" onClick={() => toggleModify(row.original.id, row.original)}>
-                      <i className="fa fa-trash fa-lg transition duration-150"></i>
-                    </button>
-                  </td>*/}
                 </tr>
               );
             })}

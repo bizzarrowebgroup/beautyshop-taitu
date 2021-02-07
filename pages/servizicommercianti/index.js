@@ -52,7 +52,6 @@ function ModalEditServizi({ isEnabled, data, onCancel, onConfirm, dataLenght, is
               setCatID(doc.id);
               setCatLabel(doc.data().label);
             }
-            //setRealCategoriaServizio(doc.data().label);
           } else {
             console.log("Non riesco a trovare la categoria!!!");
           }
@@ -81,7 +80,6 @@ function ModalEditServizi({ isEnabled, data, onCancel, onConfirm, dataLenght, is
         querySnapshot.forEach(doc => {
           finalCommercianti.push({ id: doc.id, ...doc.data() });
         });
-        //console.log("--finalCommercianti--", finalCommercianti)
         if (isEnabled) setCommercianteID(finalCommercianti[0].id); // first round
         setCommercianti(finalCommercianti)
         resolve();
@@ -111,7 +109,6 @@ function ModalEditServizi({ isEnabled, data, onCancel, onConfirm, dataLenght, is
   // disabled atm
   const changeCategoria = (val) => {
     setCatID(val);
-    //setCatLabel();
   }
 
   const RenderSelectCategoriesServices = () => {
@@ -128,8 +125,6 @@ function ModalEditServizi({ isEnabled, data, onCancel, onConfirm, dataLenght, is
   }
 
   const changeCommerciante = val => {
-    //console.log(val, "--changeVALCOMMERCIANTE--")
-    //let label = commercianti.map(item => { if (item.id == val) return item.title });
     setRealCommerciante(val);
     setCommercianteID(val)
   }
@@ -259,7 +254,6 @@ function ModalEditServizi({ isEnabled, data, onCancel, onConfirm, dataLenght, is
                 <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" >
                   {"Ordine"}
                 </label>
-                {/*<input className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" type="text" placeholder={"Inserisci il nome"} value={data.label} />*/}
                 {dataLenght > 0 && (
                   <select onChange={({ target }) => setOrdine(Number(target.value))} value={ordine} disabled={data == null} className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm">
                     {renderSelectOrderOptions(dataLenght)}
@@ -292,10 +286,8 @@ function ModalEditServizi({ isEnabled, data, onCancel, onConfirm, dataLenght, is
               <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
                 {"Categoria del Servizio"}
               </label>
-              {/*<span className="block uppercase tracking-wide text-grey-darker italic" style={{ fontSize: 9 }}>{"La descrizione del servizio"}</span>*/}
               <select
                 className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
-                //type="text"
                 placeholder={""}
                 value={categoriaServizioID}
                 onChange={({ target }) => changeCategoria(target.value)}
@@ -307,13 +299,11 @@ function ModalEditServizi({ isEnabled, data, onCancel, onConfirm, dataLenght, is
               <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
                 {"Commerciante proprietario"}
               </label>
-              {/*<span className="block uppercase tracking-wide text-grey-darker italic" style={{ fontSize: 9 }}>{"La descrizione del servizio"}</span>*/}
               <select
                 className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
                 type="text"
                 placeholder={""}
                 value={realCommerciante}
-                //disabled={data !== null}
                 onChange={({ target }) => changeCommerciante(target.value)}
               >
                 <RenderSelectCommerciante />
@@ -368,7 +358,6 @@ function Table({ columns, data, toggleEdit, toggleModify }) {
           <thead>
             {headerGroups.map(headerGroup => (
               <tr {...headerGroup.getHeaderGroupProps()}>
-                {/*...column.getHeaderProps()*/}
                 {headerGroup.headers.map(column => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())} className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     {column.render("Header")}
@@ -383,8 +372,6 @@ function Table({ columns, data, toggleEdit, toggleModify }) {
                     </span>
                   </th>
                 ))}
-                {/*<th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100">*</th>
-                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100"></th>*/}
               </tr>
             ))}
           </thead>
@@ -422,7 +409,6 @@ const CategoriaServizio = (catId) => {
   const [label, setLabel] = useState("");
   let { value } = catId;
   catId = value;
-  //console.log(catId, "catId")
   if (catId !== undefined) {
     fire.firestore().collection('servizi').doc(catId).get().then((doc) => {
       if (doc.exists) {
@@ -432,7 +418,6 @@ const CategoriaServizio = (catId) => {
       console.log("Error getting document:", error);
     });
   }
-  //console.log("labelfinal", label)
   return (
     <div className="ml-3">
       <p className="text-gray-900 whitespace-no-wrap">
@@ -488,11 +473,6 @@ function ServiziIndex() {
 
   const columns = React.useMemo(
     () => [
-      //{
-      //  id: "order",
-      //  Header: "Posizione",
-      //  accessor: "order"
-      //},
       {
         id: "commerciante",
         Header: "Commerciante",
@@ -510,17 +490,6 @@ function ServiziIndex() {
         accessor: "servizi",
         Cell: d => <CategoriaServizio value={d.row.original.servizi} />
       },
-      //{
-      //  id: "stato",
-      //  Header: "Stato",
-      //  accessor: d => d.enabled ? 'Visibile in App' : 'Non visible in App'
-      //},
-      //{
-      //  id: "costo",
-      //  Header: "Costo",
-      //  accessor: d => `${parseInt(d.cost).toFixed(2)} €`,
-      //},
-
     ],
     [commercianti, servizi]
   );
@@ -542,7 +511,7 @@ function ServiziIndex() {
   const editServizio = async (id, data) => {
     setReloading(true);
     try {
-      console.log("---dataToupdate---", data)
+      // console.log("---dataToupdate---", data)
       fire.firestore().collection('servizicommercianti').doc(id).update({ ...data, timestamp: Date.now() });
       setTimeout(() => {
         setReloading(false);
@@ -551,20 +520,16 @@ function ServiziIndex() {
       setReloading(false);
       console.log(error, "errror")
     }
-    //if (updateData) console.log("---updateData---", JSON.stringify(updateData))
   }
 
   const handleDelete = async () => {
     try {
       if (deleteItemId !== undefined) {
-        //console.log("--CANCELLANDO--", deleteItemId);
         const res = await fire.firestore().collection('servizicommercianti').doc(deleteItemId).delete();
         if (res) {
           setDelete(undefined);
         }
-        //console.log("--CANCELLATO OK--", res);
       } else {
-        //console.log("--deleteItemId not provided to servizi commercianti--");
       }
     } catch (error) {
       console.log(error, "--errorcancellazione--")
@@ -620,12 +585,6 @@ function ServiziIndex() {
           toggleModify={(id, data) => {
             setModalDetails(!modalShow);
             setDelete(id);
-            //setModalDetails(!modalDetails);
-            ////let index = fotos.findIndex(f => f.commercianti == data.id);
-            //var filteredArray = fotos.filter(f => f.commercianti === data.id);
-            //renderOrari(data.id)
-            //setModalDetailsInfo(data);
-            //setModalFotos(filteredArray);
           }}
         />
       )}
@@ -642,7 +601,6 @@ function ServiziIndex() {
           onConfirm={(isNew, data) => {
             if (isNew) createServizio(data)
             else editServizio(editID, data)
-            //setIsNew(false);
           }}
           isReloading={modalEditReloading}
           dataLenght={servizi?.length >= 0 ? servizi?.length : 0}

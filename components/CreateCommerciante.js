@@ -299,23 +299,10 @@ const CreateCommerciante = () => {
       }}>
         <ShowNotification notification={notification} notificationType={notificationType} />
       </div>
-      {/*<div className="border border-gray-300 bg-white shadow rounded-md p-4 max-w-sm w-full mx-auto">
-        <div className="animate-pulse flex space-x-4">
-          <div className="rounded-full bg-gray-400 h-12 w-12"></div>
-          <div className="flex-1 space-y-4 py-1">
-            <div className="h-4 bg-gray-400 rounded w-3/4"></div>
-            <div className="space-y-2">
-              <div className="h-4 bg-gray-400 rounded"></div>
-              <div className="h-4 bg-gray-400 rounded w-5/6"></div>
-            </div>
-          </div>
-        </div>
-      </div>*/}
       <div className="rounded-md w-full p-5 mb-4 bg-white shadow">
         <div className={`${step == 0 ? "" : "hidden"}`}>
           <div className="border-b border-gray-200 mb-7">
             <div className="text-gray-800 text-center text-2xl pb-6">Crea un nuovo Commerciante</div>
-            {/*<div className="text-gray-400 text-center text-sm">{notification == "" ? "Inserisci le principali informazioni" : notification}</div>*/}
           </div>
           <div className="pt-7">
             <div className="sm:flex sm:justify-center pb-8">
@@ -344,7 +331,6 @@ const CreateCommerciante = () => {
                     </div>
                     <div className="rounded-r-md px-5 py-1 text-left">
                       <span className="font-medium text-sm">Parrucchiere</span>
-                      {/*<p className="text-gray-500 font-mono text-xs">8.1.1911</p>*/}
                     </div>
                   </button>
                   <button onClick={() => changeType(false)} type="button" className={` ${type !== null && !type ? "border-pink-300" : "border-gray-200"} col-span-1 flex shadow-sm rounded-md border cursor-pointer duration-200 focus:outline-none hover:border-pink-300 `}>
@@ -355,78 +341,8 @@ const CreateCommerciante = () => {
                     </div>
                     <div className="rounded-r-md px-5 py-1 text-left">
                       <span className="font-medium text-sm">Estetista</span>
-                      {/*<p className="text-gray-500 font-mono text-xs">10.4.0</p>*/}
                     </div>
                   </button>
-                  {/*<button type="button" className="col-span-1 flex shadow-sm rounded-md border border-gray-200 cursor-pointer duration-200 focus:outline-none hover:border-blue-300 ">
-                    <div className="bg-blue-100 flex-shrink-0 flex items-center h-14 w-14 justify-center rounded-l-md">
-                      <svg width="2500" height="2500" viewBox="0 0 256 256" preserveAspectRatio="xMidYMid" className="h-8 w-8">
-                        <path d="M256 128.004C256 57.3 198.69 0 127.998 0 57.336 0 .05 57.262 0 127.914v99.054c.038 16.042 13.05 29.03 29.1 29.03h98.95C198.72 255.97 256 198.68 256 128.004" fill="#294172"></path>
-                        <path d="M165.58 30.307c-33.11 0-60.045 26.935-60.045 60.045v31.87H73.797c-33.11 0-60.045 26.937-60.045 60.046s26.936 60.045 60.045 60.045 60.045-26.937 60.045-60.045v-31.87h31.738c33.11 0 60.046-26.936 60.046-60.045S198.69 30.307 165.58 30.307zm-59.823 151.96c0 17.622-14.337 31.96-31.96 31.96s-31.96-14.337-31.96-31.96 14.337-31.96 31.96-31.96h31.738v.09h.222v31.87zm59.823-59.956h-31.738v-.1h-.22v-31.87c0-17.623 14.337-31.96 31.96-31.96s31.96 14.337 31.96 31.96-14.338 31.96-31.96 31.96z" fill="#3c6eb4"></path>
-                        <path d="M178.85 32.128c-4.66-1.218-8.238-1.786-13.27-1.786-33.177 0-60.075 26.9-60.075 60.074v31.842h-25.16c-7.845 0-14.185 6.165-14.18 13.996 0 7.782 6.27 13.973 14.032 13.973l20.83.004c2.473 0 4.48 2 4.48 4.47v27.553c-.03 17.49-14.22 31.66-31.7 31.66-5.925 0-7.392-.776-11.437-.776-8.497 0-14.182 5.696-14.182 13.528.002 6.48 5.554 12.05 12.348 13.827 4.66 1.218 8.238 1.787 13.27 1.787 33.177 0 60.075-26.9 60.075-60.075v-31.84h25.16c7.845 0 14.185-6.165 14.18-13.996 0-7.783-6.27-13.973-14.032-13.973l-20.83-.004a4.475 4.475 0 01-4.479-4.47V90.366c.03-17.49 14.22-31.66 31.7-31.66 5.925 0 7.392.777 11.437.777 8.497 0 14.182-5.697 14.182-13.528-.002-6.48-5.554-12.05-12.348-13.828" fill="#fff"></path>
-                      </svg>
-                    </div>
-                    <div className="rounded-r-md px-5 py-1 text-left">
-                      <span className="font-medium text-sm">Fedora Server</span>
-                      <p className="text-gray-500 font-mono text-xs">31</p>
-                    </div>
-                  </button>
-                  <button type="button" className="col-span-1 flex shadow-sm rounded-md border border-gray-200 cursor-pointer duration-200 focus:outline-none hover:border-gray-400 ">
-                    <div className="bg-gray-50 flex-shrink-0 flex items-center h-14 w-14 justify-center rounded-l-md">
-                      <svg viewBox="0 0 511.968 511.968" className="h-8 w-8">
-                        <path d="M359.977 107.993c-81.73 0-147.99 66.258-147.99 147.99s66.262 147.99 147.99 147.99 147.99-66.262 147.99-147.99-66.26-147.99-147.99-147.99zm0 160c-6.624 0-12-5.374-12-12s5.375-12 12-12 12 5.375 12 12-5.375 12-12 12z" fill="#aab2bd"></path>
-                        <path d="M359.977 115.993c-77.308 0-139.99 62.68-139.99 139.99s62.684 139.99 139.99 139.99 139.99-62.683 139.99-139.99-62.683-139.99-139.99-139.99zm0 152c-6.624 0-12-5.37-12-12s5.375-12 12-12 12 5.37 12 12-5.375 12-12 12z" fill="#ccd1d9"></path>
-                        <path d="M507.968 255.984l-135.992.008a11.88 11.88 0 01-1.031 4.832l123.01 57.71c8.897-19.023 14.014-40.162 14.014-62.55z" fill="#fff" opacity="0.5"></path>
-                        <path d="M359.977 211.987c-24.296 0-43.997 19.706-43.997 43.997s19.7 43.997 43.997 43.997 43.997-19.702 43.997-43.997-19.7-43.997-43.997-43.997zm0 55.996c-6.624 0-12-5.374-12-12s5.375-12 12-12 12 5.375 12 12-5.375 12-12 12z" fill="#ed5565"></path>
-                        <path d="M359.977 211.987c-1.352 0-2.68.082-4 .203 22.42 2.023 39.998 20.854 39.998 43.794s-17.577 41.77-39.998 43.794c1.32.125 2.648.203 4 .203 24.296 0 43.997-19.702 43.997-43.997s-19.7-43.997-43.997-43.997z" opacity="0.3"></path>
-                        <path d="M3.994 99.994h311.98v311.98H3.994z" fill="#ffce54"></path>
-                        <circle cx="159.984" cy="255.984" r="51.997" fill="#f6bb42"></circle>
-                        <path d="M123.992 255.984c0-25.99 19.09-47.462 43.997-51.317-2.613-.406-5.273-.68-8-.68-28.718 0-51.997 23.28-51.997 51.997S131.272 307.98 160 307.98c2.726 0 5.386-.273 8-.68-24.908-3.85-43.997-25.327-43.997-51.317z" opacity="0.2"></path>
-                        <circle cx="256.004" cy="160.394" r="19.999" fill="#ed5565"></circle>
-                        <path d="M244.007 160.396c0-9.675 6.87-17.74 16-19.597a20.106 20.106 0 00-4-.402 20 20 0 000 39.998 20.18 20.18 0 003.999-.402c-9.127-1.856-16-9.922-16-19.597z" fill="#fff" opacity="0.3"></path>
-                        <path d="M268.006 160.396c0 9.675-6.87 17.74-16 19.597 1.293.262 2.63.402 4 .402a20 20 0 000-39.998 20.19 20.19 0 00-4 .402c9.128 1.856 16 9.922 16 19.597z" opacity="0.2"></path>
-                        <g fill="#3a3847">
-                          <path d="M315.98 415.974H4a4 4 0 01-3.999-4V99.994a4 4 0 013.999-4h311.98a4 4 0 014 4v311.98a4 4 0 01-4 4zm-307.98-8h303.98v-303.98H8v303.98zm152-95.994c-30.877 0-55.997-25.123-55.997-55.996s25.12-55.997 55.997-55.997 55.996 25.12 55.996 55.997S190.867 311.98 160 311.98zm0-103.993c-26.468 0-47.997 21.53-47.997 47.997S133.522 303.98 160 303.98s47.997-21.53 47.997-47.997-21.53-47.997-47.997-47.997zm199.977 95.993c-11.14 0-22-3.898-30.56-10.983a3.985 3.985 0 01-.53-5.625 3.975 3.975 0 015.624-.53 40.12 40.12 0 0025.468 9.14c22.054 0 39.997-17.945 39.997-39.998s-17.943-39.998-39.997-39.998c-9.28 0-18.327 3.246-25.452 9.144a3.98 3.98 0 01-5.624-.531 4.003 4.003 0 01.53-5.633c8.554-7.08 19.405-10.98 30.545-10.98 26.467 0 47.997 21.53 47.997 47.997s-21.53 47.996-47.997 47.996zm0-31.997c-8.827 0-16-7.17-16-16s7.172-16 16-16 16 7.175 16 16-7.172 16-16 16zm0-24c-4.406 0-8 3.6-8 8s3.593 8 8 8 8-3.6 8-8-3.593-8-8-8zm0 159.99c-9.687 0-19.358-.914-28.764-2.718a4.006 4.006 0 01-3.172-4.688c.422-2.164 2.54-3.547 4.688-3.172a144.69 144.69 0 0027.248 2.578c79.4 0 144-64.6 144-144s-64.6-144-144-144c-9.17 0-18.343.863-27.256 2.57-2.164.398-4.266-1.008-4.68-3.18a4 4 0 013.18-4.68 153.775 153.775 0 0128.756-2.7c83.808 0 152 68.183 152 152s-68.183 152-152 152zM236.4 168.02a4 4 0 01-3.914-3.2 24.07 24.07 0 01-.488-4.832c0-11.347 8.06-21.233 19.163-23.5 2.188-.426 4.28.953 4.723 3.113a4 4 0 01-3.113 4.723c-7.4 1.508-12.78 8.1-12.78 15.666a16.19 16.19 0 00.324 3.23 3.993 3.993 0 01-3.117 4.718 4.13 4.13 0 01-.806.082zm23.632 15.562a4 4 0 01-.801-7.918 16.05 16.05 0 0012.765-15.675 17 17 0 00-.32-3.234 3.994 3.994 0 117.828-1.593 23.5 23.5 0 01.492 4.828c0 11.347-8.055 21.237-19.155 23.5a4.085 4.085 0 01-.8.082zM260.006 168a3.98 3.98 0 01-2.827-1.172l-8-8a4 4 0 015.656-5.656l8 8a4 4 0 010 5.656 3.98 3.98 0 01-2.828 1.172z"></path>
-                          <path d="M252.007 160a3.99 3.99 0 01-2.828-1.172 4 4 0 010-5.656l23.998-24a4 4 0 015.656 5.656l-23.998 24a3.99 3.99 0 01-2.828 1.172zm-16 31.988a3.99 3.99 0 01-2.828-1.172 4 4 0 010-5.656l24-24a3.996 3.996 0 015.655 0 4 4 0 010 5.656l-23.998 24a3.99 3.99 0 01-2.828 1.172zm-96.033 183.988H27.982a4 4 0 01-4-3.999 4 4 0 014-4h111.993a4 4 0 014 4 4 4 0 01-4 3.999zm-55.997 16H27.982a4 4 0 110-8h55.996a4 4 0 110 8z"></path>
-                        </g>
-                        <path d="M3.994 99.994h16v311.98h-16z" fill="#fff" opacity="0.5"></path>
-                        <path d="M299.984 99.994h16v311.98h-16z" opacity="0.2"></path>
-                        <path d="M315.98 397.32c2.61.82 5.328 1.39 8 2.063V112.587l-8 2.06V397.32z" opacity="0.2"></path>
-                      </svg>
-                    </div>
-                    <div className="rounded-r-md px-5 py-1 text-left"><span className="font-medium text-sm">Other</span>
-                      <p className="text-gray-500 font-mono text-xs">netboot.xyz</p>
-                    </div>
-                  </button>
-                  <button type="button" className="col-span-1 flex shadow-sm rounded-md border border-gray-200 cursor-pointer duration-200 focus:outline-none hover:border-orange-300 ">
-                    <div className="bg-orange-100 flex-shrink-0 flex items-center h-14 w-14 justify-center rounded-l-md">
-                      <svg viewBox="0 0 128 128" className="h-8 w-8">
-                        <path fill="#DD4814" d="M64 3.246C30.445 3.246 3.245 30.446 3.245 64c0 33.552 27.2 60.754 60.755 60.754 33.554 0 60.755-27.202 60.755-60.754 0-33.554-27.2-60.754-60.755-60.754zm13.631 20.922a8.108 8.108 0 1114.046 8.108A8.105 8.105 0 0180.6 35.243a8.11 8.11 0 01-2.969-11.075zM64 28.763c3.262 0 6.417.453 9.414 1.281a11.357 11.357 0 005.548 8.042 11.378 11.378 0 009.725.789c5.998 5.898 9.901 13.919 10.47 22.854l-11.558.17C86.532 49.796 76.377 40.306 64 40.306a23.6 23.6 0 00-9.98 2.203L48.383 32.41A35.116 35.116 0 0164 28.763zM22.689 72.112A8.112 8.112 0 0114.576 64a8.111 8.111 0 018.113-8.113 8.113 8.113 0 010 16.225zm7.191.722A11.377 11.377 0 0034.08 64c0-3.565-1.639-6.747-4.2-8.836 2.194-8.489 7.475-15.738 14.571-20.483l5.931 9.934C44.29 48.902 40.308 55.984 40.308 64s3.981 15.098 10.074 19.383l-5.931 9.937c-7.099-4.744-12.38-11.995-14.571-20.486zm58.831 33.964a8.105 8.105 0 01-11.077-2.969c-2.241-3.877-.911-8.835 2.969-11.076 3.877-2.239 8.838-.908 11.077 2.969a8.106 8.106 0 01-2.969 11.076zm-.024-17.673a11.357 11.357 0 00-9.725.788 11.36 11.36 0 00-5.547 8.042A35.232 35.232 0 0164 99.239a35.097 35.097 0 01-15.616-3.649l5.636-10.1A23.6 23.6 0 0064 87.694c12.378 0 22.532-9.488 23.596-21.592l11.561.169c-.569 8.935-4.472 16.956-10.47 22.854z"></path>
-                      </svg>
-                    </div>
-                    <div className="rounded-r-md px-5 py-1 text-left"><span className="font-medium text-sm">Ubuntu Server</span>
-                      <p className="text-gray-500 font-mono text-xs">18.04.4 LTS</p>
-                    </div>
-                  </button>
-                  <button type="button" className="col-span-1 flex shadow-sm rounded-md border border-gray-200 cursor-pointer duration-200 focus:outline-none hover:border-orange-300 ">
-                    <div className="bg-orange-100 flex-shrink-0 flex items-center h-14 w-14 justify-center rounded-l-md">
-                      <svg viewBox="0 0 60 60" fill="none" className="h-8 w-8">
-                        <path d="M43.8 7.2h9v30H60V0H43.8v7.2zM37.2 0H0v16.2h7.2v-9h30V0zM7.2 22.8H0V60h16.2v-7.2h-9v-30zM22.8 52.8V60H60V43.8h-7.2v9h-30z" fill="url(#vyos_svg__A)"></path>
-                        <path d="M13.2 13.2h7.2l13.2 33.6h-7.2L13.2 13.2z" fill="url(#vyos_svg__A)"></path>
-                        <path d="M46.8 13.2h-7.2L26.4 46.8h7.2l13.2-33.6z" fill="url(#vyos_svg__A)"></path>
-                        <defs>
-                          <linearGradient id="vyos_svg__A" x1="0" y1="0" x2="60" y2="60" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#ffbf12"></stop>
-                            <stop offset="1" stop-color="#ff9000"></stop>
-                          </linearGradient>
-                        </defs>
-                      </svg>
-                    </div>
-                    <div className="rounded-r-md px-5 py-1 text-left"><span className="font-medium text-sm">VyOS</span>
-                      <p className="text-gray-500 font-mono text-xs">Rolling</p>
-                    </div>
-                  </button>
-                */}
                 </div>
                 <div className="mt-5 mb-2">
                   <div className="text-sm text-left text-gray-700 font-medium">Scegli un piano</div>
@@ -439,10 +355,7 @@ const CreateCommerciante = () => {
                       <div className="text-xs text-center ">€ 0,25 a pren.</div>
                     </div>
                     <div className="p-4">
-                      {/*<div className="text-xs text-left font-mono"><span className="font-bold">1</span> vCPU</div>
-                      <div className="text-xs text-left font-mono"><span className="font-bold">1GB</span> Memory</div>
-                      <div className="text-xs text-left font-mono"><span className="font-bold">10GB</span> SSD</div>
-                      <div className="text-xs text-left font-mono whitespace-no-wrap"><span className="font-bold">2TB</span> Transfer</div>*/}
+                     
                     </div>
                   </button>
                   <button onClick={() => changePlan(1)} className={`${plan !== null && plan == 1 ? "border-green-400" : ""} col-span-1 shadow-sm rounded-md duration-200 focus:outline-none border hover:border-green-400 border-gray-200" type="button`}>
@@ -452,10 +365,7 @@ const CreateCommerciante = () => {
                       <div className="text-xs text-center ">€ 0,20 a pren.</div>
                     </div>
                     <div className="p-4">
-                      {/*<div className="text-xs text-left font-mono"><span className="font-bold">2</span> vCPUs</div>
-                      <div className="text-xs text-left font-mono"><span className="font-bold">2GB</span> Memory</div>
-                      <div className="text-xs text-left font-mono"><span className="font-bold">20GB</span> SSD</div>
-                      <div className="text-xs text-left font-mono whitespace-no-wrap"><span className="font-bold">4TB</span> Transfer</div>*/}
+                      
                     </div>
                   </button>
                   <button onClick={() => changePlan(2)} className={`${plan !== null && plan == 2 ? "border-green-400" : ""} col-span-1 shadow-sm rounded-md duration-200 focus:outline-none border hover:border-green-400 border-gray-200" type="button`}>
@@ -465,10 +375,6 @@ const CreateCommerciante = () => {
                       <div className="text-xs text-center ">€ 0,15 a pren.</div>
                     </div>
                     <div className="p-4">
-                      {/*<div className="text-xs text-left font-mono"><span className="font-bold">4</span> vCPUs</div>
-                      <div className="text-xs text-left font-mono"><span className="font-bold">4GB</span> Memory</div>
-                      <div className="text-xs text-left font-mono"><span className="font-bold">40GB</span> SSD</div>
-                      <div className="text-xs text-left font-mono whitespace-no-wrap"><span className="font-bold">8TB</span> Transfer</div>*/}
                     </div>
                   </button>
                   <button onClick={() => changePlan(3)} className={`${plan !== null && plan == 3 ? "border-green-400" : ""} col-span-1 shadow-sm rounded-md duration-200 focus:outline-none border hover:border-green-400 border-gray-200" type="button`}>
@@ -476,10 +382,6 @@ const CreateCommerciante = () => {
                       <div className="text-sm text-center p-2">€ 59,99 annui</div>
                     </div>
                     <div className="p-4">
-                      {/*<div className="text-xs text-left font-mono"><span className="font-bold">8</span> vCPUs</div>
-                      <div className="text-xs text-left font-mono"><span className="font-bold">8GB</span> Memory</div>
-                      <div className="text-xs text-left font-mono"><span className="font-bold">80GB</span> SSD</div>
-                      <div className="text-xs text-left font-mono whitespace-no-wrap"><span className="font-bold">16TB</span> Transfer</div>*/}
                     </div>
                   </button>
                 </div>
@@ -498,7 +400,6 @@ const CreateCommerciante = () => {
         <div className={`${step == 1 ? "" : "hidden"}`}>
           <div className="border-b border-gray-200 pb-7">
             <div className="text-gray-800 text-center text-2xl pb-6">Informazioni generali</div>
-            {/*<div className="text-gray-400 text-center text-sm">{notification == "" ? "Inserisci ora le specifiche del commerciante" : notification}</div>*/}
           </div>
           <div className="pt-7">
             <div className="sm:flex sm:justify-center pb-6">
@@ -510,7 +411,6 @@ const CreateCommerciante = () => {
                 <div className="col-span-10">
                   <label className="block text-sm text-left text-gray-700 font-medium mb-2">Indirizzo</label>
                   <input id="billingAddress" value={via} onChange={({ target }) => setVia(target.value)} className="form-input block h-10 mt-1 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm" placeholder="Via Mestrina 28, 30173 Mestre VE" />
-                  {/*<input id="billingAddress2" className="form-input block h-10 mt-1 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm" placeholder="Apartment, studio, or floor" />*/}
                 </div>
                 <div className="col-span-10 sm:col-span-4">
                   <label className="block text-sm text-left text-gray-700 font-medium mb-2">Email</label>
@@ -554,7 +454,6 @@ const CreateCommerciante = () => {
         <div className={`${step == 2 ? "" : "hidden"}`}>
           <div className="border-b border-gray-200 pb-7">
             <div className="text-gray-800 text-center text-2xl pb-6">Informazioni generali</div>
-            {/*<div className="text-gray-400 text-center text-sm">{notification == "" ? "Inserisci ora le specifiche del commerciante" : notification}</div>*/}
           </div>
           <div className="pt-7">
             <div className="sm:flex sm:justify-center pb-6">
@@ -885,48 +784,6 @@ const CreateCommerciante = () => {
                     </div>
                   </div>
                 </div>
-                {/*<div className="col-span-10">*/}
-                {/*<label className="block text-sm text-left text-gray-700 font-medium mb-2">Categorie di Servizi</label>*/}
-                {/*<input id="billingAddress" className="form-input block h-10 mt-1 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm" placeholder="1234 Main Street" />*/}
-                {/*<input id="billingAddress2" className="form-input block h-10 mt-1 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm" placeholder="Apartment, studio, or floor" />*/}
-                {/*</div>*/}
-                {/*<div className="col-span-10 sm:col-span-4">
-                  <label htmlFemail" className="block text-sm text-left text-gray-700 font-medium mb-2">Email</label>
-                  <input id="email" className="form-input block h-10 mt-1 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm" />
-                </div>
-                <div className="col-span-10 sm:col-span-2">
-                  <label htmlFphone" className="block text-sm text-left text-gray-700 font-medium mb-2">Telefono</label>
-                  <input id="phone" type="number" className="form-input block h-10 mt-1 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm" />
-                </div>
-                <div className="col-span-10 sm:col-span-4">
-                  <label htmlFbillingCountry" className="block text-sm text-left text-gray-700 font-medium mb-2">Economia</label>
-                </div>*/}
-                {/*className="block appearance-none form-select h-10 text-gray-900 w-full py-2 px-3 border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out text-sm"*/}
-                {/*<div className="col-span-10">
-                  <h4>Fatturazione</h4>
-                  <hr />
-                </div>
-                <div className="col-span-10 sm:col-span-6">
-                  <label className="block text-sm text-left text-gray-700 font-medium mb-2">
-                    {"Numero Carta"}
-                    <input className="form-input block h-10 mt-1 w-full border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out" aria-hidden="true" aria-label=" " autoComplete="false" />
-                  </label>
-                </div>
-                <div className="col-span-10 sm:col-span-2">
-                  <label className="block text-sm text-left text-gray-700 font-medium mb-2">
-                    {"Scadenza"}
-                    <input className="form-input block h-10 mt-1 w-full border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out" aria-hidden="true" aria-label=" " autoComplete="false" />
-                  </label>
-                </div>
-                <div className="col-span-10 sm:col-span-2">
-                  <label className="block text-sm text-left text-gray-700 font-medium mb-2">
-                    {"CVC"}
-                    <input className="form-input block h-10 mt-1 w-full items-center border rounded-md focus:outline-none shadow-sm transition duration-150 ease-in-out" aria-hidden="true" aria-label=" " autoComplete="false" maxLength="4" />
-                  </label>
-                </div>*/}
-                {/*<p className="col-span-10 text-xs text-gray-400">
-                  {"Autorizzo ad inviare istruzioni all'istituto finanziario che ha emesso la mia carta per accettare pagamenti dal conto della mia carta in conformità con i termini del mio contratto."}
-                </p>*/}
               </div>
             </div>
             <div className="pt-3 sm:pt-5 border-t border-gray-200 sm:flex sm:flex-row-reverse">

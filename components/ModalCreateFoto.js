@@ -10,7 +10,6 @@ const ModalCreateFoto = ({
     setFotoUrl
 }) => {
     if (show && commercianti !== undefined) {
-        // console.log("----commercianti  GOT---", commercianti)
         return (
             <div className="fixed z-10 inset-0 overflow-y-auto">
                 <div

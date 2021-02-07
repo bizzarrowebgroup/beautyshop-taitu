@@ -7,7 +7,6 @@ const ModalDetails = ({
   isEnabled,
 }) => {
   if (isEnabled) {
-    //console.log("---orari---", orari);
     let title = data.title ? data.title : "",
       desc = data.desc ? data.desc : "",
       via = data.via ? data.via : "",
@@ -19,7 +18,6 @@ const ModalDetails = ({
       id = data.id ? data.id : null,
       Background = fotos.length >= 1 ? fotos[0].url : '',
       orariLength = orari !== undefined ? Object.keys(orari).length : 0;
-    //console.log("---orariLength---", orari.lunedi);
 
     return (
       <div className="fixed z-10 inset-0 overflow-y-auto">
@@ -58,7 +56,6 @@ const ModalDetails = ({
                 width: "100%"
               }} />
               <div className="px-4 flex flex-col justify-items-start justify-start">
-                {/*<i className="fas fa-exclamation-circle text-blue-500"></i>*/}
                 <span className="text-white text-xs font-medium">{"Stai gestendo"}</span>
                 <span className="font-bold text-white text-lg">{title}</span>
               </div>

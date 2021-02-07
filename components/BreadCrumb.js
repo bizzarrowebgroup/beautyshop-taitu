@@ -4,8 +4,7 @@ import Link from 'next/link';
 
 const BreadCrumb = () => {
   const { RenderTitle, enabledIcon } = useContext(RouteContext);
-  //console.log("---RenderTitle---", RenderTitle)
-  console.log("---enabledIcon---", enabledIcon)
+  // console.log("---enabledIcon---", enabledIcon)
   return (
     <>
       <div className="flex items-center h-10 my-1 sm:my-3 lg:my-3 justify-between flex-wrap sm:flex-no-wrap text-sm font-medium">
@@ -76,8 +75,6 @@ const BreadCrumb = () => {
                   <line x1="8" y1="12" x2="16" y2="12"></line>
                 </svg>
                 <span>Crea Commericante</span>
-                {/*<span className="hidden sm:block">Crea</span>*/}
-                {/*<span className="sm:hidden"></span>*/}
               </button>
             </Link>
           </div>

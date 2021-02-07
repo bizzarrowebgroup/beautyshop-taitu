@@ -35,7 +35,7 @@ const ModalEditPrenotazione = ({
     onDelete
 }) => {
     if (isEnabled) {
-        console.log("---data---", data)
+        // console.log("---data---", data)
         let nomeCommerciante = data.nomeCommerciante ? data.nomeCommerciante : "",
             id = data.prenId ? data.prenId : "",
             nomeUtente = data.nomeUtente ? data.nomeUtente : "",
@@ -47,9 +47,6 @@ const ModalEditPrenotazione = ({
             state = data.state ? data.state : 0,
             totale = data.totale ? data.totale : 0,
             userId = data.userId ? data.userId : 0
-        /**
-        cart: [{…}]
-         */
         return (
             <div className="fixed z-10 inset-0 overflow-y-auto">
                 <div
@@ -92,7 +89,6 @@ const ModalEditPrenotazione = ({
                                     {"Stato"}
                                 </label>
                                 {renderStatusRow(state)}
-                                {/* <input className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" type="text" disabled value={state} /> */}
                             </div>
                         </div>
                         <div className="px-10 py-5">
@@ -111,16 +107,6 @@ const ModalEditPrenotazione = ({
                                 <input className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" type="text" disabled value={nomeUtente} />
                             </div>
                         </div>
-                        {/**
-                         * notes = data.notes ? data.notes : "",
-            pren_date = data.pren_date ? data.pren_date : "",
-            slot_date = data.slot_date ? data.slot_date : "",
-            slot_time = data.slot_time ? data.slot_time : "",
-            slot_end_time = data.slot_end_time ? data.slot_end_time : "",
-            state = data.state ? data.state : 0,
-            totale = data.totale ? data.totale : 0,
-            userId = data.userId ? data.userId : 0
-                         */}
                         <div className="px-10 py-5">
                             <div className="px-3 md:mb-0">
                                 <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" >

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import fire from '../config/fire-config';
-//import Link from 'next/link';
-//import ReactTable from 'react-table';
 
 import { useTable } from "react-table";
 
@@ -43,9 +41,7 @@ function Table({ columns, data, toggleEdit, toggleModify }) {
                 <tr {...row.getRowProps()}>
                   {row.cells.map(cell => {
                     return <td {...cell.getCellProps()} className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                      {/*<p className="text-gray-900 whitespace-no-wrap">*/}
                       {cell.render("Cell")}
-                      {/*</p>*/}
                     </td>;
                   })}
                   <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right">
@@ -71,12 +67,10 @@ function Table({ columns, data, toggleEdit, toggleModify }) {
 const ShowCommercianti = () => {
   const [blogs, setBlogs] = useState([]);
   const [fotos, setFotos] = useState([]);
-  //const [orari, setOrari] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [modalDetails, setModalDetails] = useState(false);
   const [modalDetailsInfo, setModalDetailsInfo] = useState(undefined);
   const [modalFotos, setModalFotos] = useState(undefined);
-  //const [modalOrari, setModalOrari] = useState(undefined);
   const [deleteItemId, setDelete] = useState(undefined);
   const [days, setDay] = React.useState(undefined);
   useEffect(() => {
@@ -185,7 +179,6 @@ const ShowCommercianti = () => {
     );
   };
   const TitoloCommericante = ({ value }) => {
-    //console.log("---value---", value)
     return (
       <div className="ml-3">
         <p className="text-gray-900 whitespace-no-wrap">
@@ -227,7 +220,6 @@ const ShowCommercianti = () => {
         }}
         toggleModify={(data) => {
           setModalDetails(!modalDetails);
-          //let index = fotos.findIndex(f => f.commercianti == data.id);
           var filteredArray = fotos.filter(f => f.commercianti === data.id);
           renderOrari(data.id)
           setModalDetailsInfo(data);
@@ -261,13 +253,6 @@ const ShowCommercianti = () => {
           setModalShow(!modalShow);
         }}
       />
-      {/*<ul>
-        {blogs.map(blog =>
-          <Link href="/commercianti/[id]" as={'/commerciante/' + blog.id}>
-            <a>{blog.title}</a>
-          </Link>
-        )}
-      </ul>*/}
     </div >
   )
 }

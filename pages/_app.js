@@ -1,6 +1,5 @@
 import '../assets/css/tailwind.css';
 import '../assets/css/index.css';
-//import 'react-table/react-table.css';
 import React, { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/router'
 
@@ -32,17 +31,11 @@ export default function MyApp({ Component, pageProps }) {
     fire.auth()
       .signOut()
       .then(() => {
-        // console.log("---logOut ok---");
-        //setNotification('Logged out')
-        //setTimeout(() => {
-        //  setNotification('')
-        //}, 2000)
+        
       });
   }
   const RenderTitle = useMemo(() => {
     let title = "", subTitle = "";
-    // console.log("--router--", router.pathname)
-    //console.log("--actualRoute--", actualRoute)
     switch (router.pathname) {
       case "/":
         title = "";
@@ -84,13 +77,7 @@ export default function MyApp({ Component, pageProps }) {
         title = "Foto commercianti";
         setEnabled(false);
         break;
-      //default:
-      //  title = "";
-      //  subTitle = "";
-      //  setEnabled(false);
-      //  break;
     }
-    //setRoute(title);
     return {
       title,
       subTitle
@@ -127,7 +114,6 @@ export default function MyApp({ Component, pageProps }) {
       </div>
     );
   }
-  //let bgImg = "https://images.unsplash.com/photo-1468429496510-236edfeeed4d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9";
   return (
     <RouteContext.Provider value={{
       RenderTitle: RenderTitle,
@@ -136,14 +122,7 @@ export default function MyApp({ Component, pageProps }) {
       handleLogout,
       ShowNotification
     }}>
-      <div className="h-full lg:flex xl:justify-center bg-gray-100"
-      //style={{
-      //  background: RenderTitle.title == 'Login' ? `url(${bgImg}) center center no-repeat` : null,
-      //  backgroundRepeat: "no-repeat",
-      //  backgroundAttachment: "fixed",
-      //  backgroundPosition: "center",
-      //}}
-      >
+      <div className="h-full lg:flex xl:justify-center bg-gray-100">
         {loggedIn && <NavMobile />}
         <div className="max-w-5xl flex flex-col flex-1 overflow-hidden">
           {loggedIn && <NavPc />}

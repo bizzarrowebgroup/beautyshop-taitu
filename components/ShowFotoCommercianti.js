@@ -3,7 +3,6 @@ import fire from '../config/fire-config';
 
 import { useTable } from "react-table";
 
-// import Modal from "./Modal";
 import ModalFotoDetails from "./ModalFotoDetails";
 import ModalCreateFoto from './ModalCreateFoto';
 
@@ -42,9 +41,7 @@ function Table({ columns, data, toggleEdit, toggleModify }) {
                                 <tr {...row.getRowProps()}>
                                     {row.cells.map(cell => {
                                         return <td {...cell.getCellProps()} className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                            {/*<p className="text-gray-900 whitespace-no-wrap">*/}
                                             {cell.render("Cell")}
-                                            {/*</p>*/}
                                         </td>;
                                     })}
                                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right">
@@ -202,10 +199,6 @@ const ShowCommercianti = () => {
                 <Table
                     columns={columns}
                     data={fotoDB}
-                    // toggleEdit={(id) => {
-                    //     setModalShow(!modalShow);
-                    //     setDelete(id);
-                    // }}
                     toggleModify={(data) => {
                         console.log("---data---", data)
                         setModalEditDetails(!modalDetails);
@@ -231,24 +224,7 @@ const ShowCommercianti = () => {
                 fotoUrl={fotoUrl}
                 setFotoUrl={(i) => { setFotoUrl(i.target.value) }}
             />
-            {/* <Modal
-                isEnabled={modalShow}
-                title="Attenzione" desc="Sei sicuro di voler eliminare il seguente commericante?"
-                onConfirm={async () => {
-                    try {
-                        const res = await fire.firestore().collection('commercianti').doc(deleteItemId).delete();
-                        if (res) {
-                            console.log("--CANCELLATO OK--");
-                        }
-                    } catch (error) {
-                        console.log(error, "--errorcancellazione--")
-                    }
-                    setModalShow(!modalShow);
-                }}
-                onCancel={() => {
-                    setModalShow(!modalShow);
-                }}
-            /> */}
+            
         </div>
     )
 }
