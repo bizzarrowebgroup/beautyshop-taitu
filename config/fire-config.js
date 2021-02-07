@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+
 const firebaseConfig = {
   apiKey: "AIzaSyDTRi3LQzoW4dMkbfPOpZVayYyMkYyp0ac",
   authDomain: "beautyshop-afe23.firebaseapp.com",
@@ -8,6 +9,7 @@ const firebaseConfig = {
   messagingSenderId: "470013044742",
   appId: "1:470013044742:web:c5cabae0efe0f2da96bb87"
 };
+
 try {
   firebase.initializeApp(firebaseConfig);
 } catch (err) {

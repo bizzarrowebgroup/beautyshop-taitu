@@ -31,9 +31,10 @@ export default function MyApp({ Component, pageProps }) {
     fire.auth()
       .signOut()
       .then(() => {
-        
+
       });
   }
+
   const RenderTitle = useMemo(() => {
     let title = "", subTitle = "";
     switch (router.pathname) {
@@ -83,6 +84,7 @@ export default function MyApp({ Component, pageProps }) {
       subTitle
     };
   }, [actualRoute, router.pathname]);
+
   const ShowNotification = ({ notification, notificationType }) => {
     return (
       <div className={`${notificationType == 0 ?
@@ -114,14 +116,17 @@ export default function MyApp({ Component, pageProps }) {
       </div>
     );
   }
+
   return (
-    <RouteContext.Provider value={{
-      RenderTitle: RenderTitle,
-      enabledIcon: enabledIcon,
-      loggedIn,
-      handleLogout,
-      ShowNotification
-    }}>
+    <RouteContext.Provider
+      value={{
+        RenderTitle,
+        enabledIcon,
+        loggedIn,
+        handleLogout,
+        ShowNotification
+      }}
+    >
       <div className="h-full lg:flex xl:justify-center bg-gray-100">
         {loggedIn && <NavMobile />}
         <div className="max-w-5xl flex flex-col flex-1 overflow-hidden">
