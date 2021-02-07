@@ -1,7 +1,10 @@
-import '../assets/css/tailwind.css';
-import '../assets/css/index.css';
 import React, { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/router'
+import '../assets/css/tailwind.css';
+import '../assets/css/index.css';
+import '@fullcalendar/common/main.css'
+import '@fullcalendar/daygrid/main.css'
+import '@fullcalendar/timegrid/main.css'
 
 import NavPc from '../components/NavPc';
 import NavMobile from '../components/NavMobile';
