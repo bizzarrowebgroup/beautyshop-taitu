@@ -21,4 +21,7 @@ The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
 
- lcp --proxyUrl https://exp.host to send notifications in local env
+lcp --proxyUrl https://exp.host to send notifications in local env
+
+username admin@bizzarro.org
+password jonathan97
