@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import fire from '../../config/fire-config';
-import { useTable, useSortBy } from "react-table";
+// import { useTable, useSortBy } from "react-table";
 import Modal from "../../components/Modal";
 
 // TODO ADD VALIDATION !!!

@@ -4,7 +4,7 @@
 //   }
 // }
 const withTM = require('next-transpile-modules')([
-  '@fullcalendar'
+  '@fullcalendar',
 ])
 
 module.exports = withTM({
